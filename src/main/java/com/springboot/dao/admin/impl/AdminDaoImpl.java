@@ -23,8 +23,7 @@ public class AdminDaoImpl implements AdminDao {
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public Admin getPassword(String ADMIN_NAME) {
-        System.out.println("AdminDao");
+    public Admin getAdminByName(String ADMIN_NAME) {
         String sql = "SELECT * FROM admin WHERE ADMIN_NAME=?";
         Admin admin = null;
         try{

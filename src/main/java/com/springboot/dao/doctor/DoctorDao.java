@@ -1,16 +1,17 @@
-package com.springboot.dao.admin;
+package com.springboot.dao.doctor;
 
 import com.springboot.domain.Admin;
+import com.springboot.domain.Doctor;
 
 /**
  * @author eternalSy
  * @version 1.0.0
  */
-public interface AdminDao {
+public interface DoctorDao {
 
     /**
      * 根据用户名获取用户所有信息 以对象形式返回
-     * @return Admin
+     * @return Doctor
      */
-    Admin getAdminByName(String ADMIN_NAME);
+    Doctor getDoctorByName(String DOCTOR_NAME);
 }

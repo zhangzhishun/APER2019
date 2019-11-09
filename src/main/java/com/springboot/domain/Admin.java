@@ -12,11 +12,6 @@ public class Admin {
     public Admin() {
     }
 
-    public Admin(String ADMIN_NAME, String ADMIN_PASSWORD) {
-        this.ADMIN_NAME = ADMIN_NAME;
-        this.ADMIN_PASSWORD = ADMIN_PASSWORD;
-    }
-
     public Integer getADMIN_ID() {
         return ADMIN_ID;
     }
