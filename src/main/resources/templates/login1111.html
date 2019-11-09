@@ -1,0 +1,65 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>登录</title>
+		<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+		<!-- Bootstrap core CSS -->
+		<link href="/aper/webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="css/signin.css" rel="stylesheet">
+	</head>
+	<body class="text-center">
+		<form class="form-signin" action="" >
+			<img class="mb-4" src="static/img/head.png" alt="头像" width="90" height="90">
+			<h1 class="h3 mb-3 font-weight-normal">用户登录</h1>
+			<!--判断-->
+			<p style="color: #ff0218" text={{ msg }} ></p>
+			<label class="sr-only" >用户名</label>
+			<input type="text"  id="username" class="form-control" placeholder="Username" required="" autofocus="">
+			<label class="sr-only">密码</label>
+			<input type="password" id="password" class="form-control" placeholder="Password" required="">
+			<div class="checkbox mb-3">
+				<label>
+          			<input type="checkbox" value="remember-me"/> 记住密码
+        		</label>
+			</div>
+			<button id="btn1" type="button" class="btn btn-lg btn-primary btn-block">原始按钮</button>
+			<button id="btn2" type="button" class="btn btn-lg btn-primary btn-block">原始按钮</button>
+			<button id="btn3" type="button" class="btn btn-lg btn-primary btn-block">原始按钮</button>
+			<p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+		</form>
+
+	</body>
+
+	<script type="text/javascript" src="/jquery/jquery.js"></script>
+	<script type="text/javascript">
+		$("#btn1").click(function(){
+			var username = $("#username").val();//获取表单的输入值;
+			var password = $("#password").val();//获取表单的输入值;
+			alert("Text: "+username+password);
+			$.ajax({
+				type: "POST",
+				dataType: "html",
+				url: "./login",
+				data: {"username":username,"password":password,"type":"user"},//提交的数据
+				success: function (result) {
+					var strresult=result;
+					alert(strresult);
+				},
+				error: function(data) {
+					alert("error:"+data.responseText);
+				}
+
+			});
+		});
+		$("#btn2").click(function(){
+			alert("HTML: ");
+		});
+		$("#btn3").click(function(){
+			alert("HTML3333: ");
+		});
+	</script>
+</html>

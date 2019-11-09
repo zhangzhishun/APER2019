@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet">
+    <title>管理员</title>
+  </head>
+  <body>
+  <div style="text-align:center;">
+      <h3></h3>
+      <form role="form" method="post" action="GoToPages">
+        <br><br>
+        <h5>登录名：<span th:text="${session.loginUser}"></span></h5>
+      </form>
+  </div>
+
+  </body>
+
+  <script type="text/javascript">
+    function reset(){
+      document.getElementById("userName").value = "";
+      document.getElementById("password").value = "";
+    }
+    function login(){
+      document.getElementById('form').submit();
+    }
+  </script>
+
+</html>

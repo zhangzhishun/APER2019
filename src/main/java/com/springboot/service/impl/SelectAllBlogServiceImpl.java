@@ -15,6 +15,7 @@ public class SelectAllBlogServiceImpl implements SelectAllBlogService {
     @Autowired
     csdnDao csdnDaoImpl;
 
+    @Override
     public List<Map<String, Object>> FindIdTitleAYBlog() {
         return csdnDaoImpl.FindIdTitleAYBlog();
     }

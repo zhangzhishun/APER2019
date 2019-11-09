@@ -1,0 +1,46 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 Bootstrap -->
+    <link href="css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet">
+    <title>用户</title>
+  </head>
+  <body>
+  <div style="text-align:center;">
+      <h3>MAINUSER
+          将CSDN中的数据导入到Blog</h3>
+      <form role="form" method="post" action="GoToPages">
+        <div class="form-group">
+          <br>
+          <label for="name">跳转页面</label>
+          <input type="text" class="form-control" name = "acw_sc__v2" id="acw_sc__v2" placeholder="请点击按钮获取acw_sc__v2"
+                 th:value="${acw_sc__v2?.toString()}">
+          <input type="text" class="form-control" name = "pages" id="name" placeholder="请输入页码">
+        </div>
+
+        <button type="button" class="btn btn-default" onclick="window.location.href='./getAcw'">获取acw_sc__v2</button>
+        &nbsp;&nbsp;
+          <button type="submit" class="btn btn-default" href="javascript:login()">跳转到该页</button>
+        <br><br>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='./FindAiYueBlog'">查看爱玥博客</button>
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-primary" onclick="window.location.href='https://blog.csdn.net/qq_36254699'">查看CSDN博客</button>
+
+        <br><br>
+        <h5>登录名：<span th:text="${session.loginUser}"></span></h5>
+      </form>
+  </div>
+
+  </body>
+
+  <script type="text/javascript">
+    function reset(){
+      document.getElementById("userName").value = "";
+      document.getElementById("password").value = "";
+    }
+    function login(){
+      document.getElementById('form').submit();
+    }
+  </script>
+
+</html>

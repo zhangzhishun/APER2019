@@ -2,7 +2,6 @@ package com.springboot.dao.impl;
 
 import com.springboot.dao.copyCsdnDao;
 import com.springboot.domain.CSDN;
-import com.springboot.utils.copyFromCsdn.GetAcw_sc__v2;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,10 +13,12 @@ import java.util.*;
 
 @Repository
 public class copyCsdnDaoImpl implements copyCsdnDao{
+    @Override
     public List<CSDN> getCsdnResult() {
         return FindAllArticle(pages);
     }
 
+    @Override
     public void setCsdnResult(List<CSDN> csdnResult) {
         this.csdnResult = csdnResult;
     }
