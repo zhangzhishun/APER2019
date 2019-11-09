@@ -10,10 +10,10 @@ import java.util.Locale;
 
 
 @SpringBootApplication
-public class SpringBootCopyCSDNApplication {
+public class SpringBootAperApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootCopyCSDNApplication.class, args);
+		SpringApplication.run(SpringBootAperApplication.class, args);
 	}
 
 	@Bean

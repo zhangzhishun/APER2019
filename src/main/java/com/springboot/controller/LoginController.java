@@ -70,5 +70,15 @@ public class LoginController {
 
     }
 
+    @GetMapping("/login2")
+    public String login111(){
+        return "login2";
+    }
+
+    @GetMapping("/index")
+    public String index(){
+        return "index";
+    }
+
 
 }

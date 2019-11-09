@@ -13,8 +13,8 @@
 	</head>
 	<body class="text-center">
 		<form class="form-signin" action="./login" name="loginForm" method="post">
-			<img class="mb-4" src="img/head.png" alt="头像" width="90" height="90">
-			<h1 class="h3 mb-3 font-weight-normal">用户登录</h1>
+			<img class="mb-4" src="static/img/head.png" alt="头像" width="90" height="90">
+			<h1 class="h3 mb-3 font-weight-normal">shouye</h1>
 			<!--判断-->
 			<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
 			<label class="sr-only" >用户名</label>
@@ -27,27 +27,45 @@
         		</label>
 			</div>
 			<input type="hidden" name="type" id="type" value="">
-			<button id="btn1" type="button" class="btn btn-primary btn-sm" onClick="userLogin()">用户登陆</button>
-			<button id="btn2" type="button" class="btn btn-primary btn-sm" onClick="doctorLogin()">医生登陆</button>
-			<button id="btn3" type="button" class="btn btn-primary btn-sm" onclick="adminLogin()">管理员登录</button>
-			<div style="text-align: right">
-				<a class="btn btn-link" href="./register" style="font-size:12px;">注册</a>
-			</div>
+			<button id="btn1" type="button" class="btn btn-lg btn-primary btn-block" onClick="userLogin()">用户登陆</button>
+			<button id="btn2" type="button" class="btn btn-lg btn-primary btn-block" onClick="doctorLogin()">医生登陆</button>
+			<button id="btn3" type="button" class="btn btn-lg btn-primary btn-block" onclick="adminLogin()">管理员登录</button>
+			<a class="btn btn-lg btn-primary btn-block" href="./register">注册</a>
+
 		</form>
+
+		<nav class="mui-bar mui-bar-tab">
+			<a href="./login" class="mui-tab-item mui-active" id="defaultTab">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a href="message.html" class="mui-tab-item">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">商城</span>
+			</a>
+			<a href="setting.html" class="mui-tab-item">
+				<span class="mui-icon mui-icon-home"><span class="mui-badge">5</span></span>
+				<span class="mui-tab-label">购物车</span>
+			</a>
+		</nav>
 	</body>
+
 	<script type="text/javascript" src="/jquery/jquery.js"></script>
 	<script type="text/javascript">
 		function userLogin() {
 			$("#type").attr("value","user");
 			document.loginForm.submit();
 		}
+
 		function doctorLogin() {
 			$("#type").attr("value","doctor");
 			document.loginForm.submit();
 		}
+
 		function adminLogin() {
 			$("#type").attr("value","admin");
 			document.loginForm.submit();
 		}
+
 	</script>
 </html>
