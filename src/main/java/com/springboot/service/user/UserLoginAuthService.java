@@ -18,5 +18,4 @@ public interface UserLoginAuthService {
      * @return boolean
      * */
     boolean userLoginAuth(User login);
-
 }

@@ -33,6 +33,7 @@ public class UserDaoImpl implements UserDao {
                 @Override
                 public User mapRow(ResultSet rs, int paramInt) throws SQLException {
                     User c = new User();
+                    c.setUSER_ID(rs.getInt("USER_ID"));
                     c.setUSER_PASSWORD(rs.getString("USER_PASSWORD"));
                     c.setUSER_PHONE(rs.getString("USER_PHONE"));
                     c.setUSER_SEX(rs.getString("USER_SEX"));

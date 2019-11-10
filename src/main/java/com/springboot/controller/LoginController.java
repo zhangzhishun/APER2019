@@ -54,7 +54,7 @@ public class LoginController {
                 List<Map<String, Object>> userReply;
                 userReply = replyGetServiceImpl.getReplyByUSERNAME(username);
                 model.addAttribute("userMsg",userReply);
-                session.setAttribute("loginUser",username);
+                session.setAttribute("username",username);
                 return type + "/main";
             }else{
                 //登陆失败
