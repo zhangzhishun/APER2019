@@ -7,10 +7,10 @@ import org.omg.CORBA.ObjectHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,11 +30,10 @@ public class UserController {
     @Autowired
     ReplyGetService replyGetServiceImpl;
 
-    @GetMapping("/main")
-    public String userLogin(){
-        //        session.setAttribute("loginUser",username);
-        System.out.println("main");
-        return "user/main";
+    @GetMapping("/toAskVisit")
+    public String toAskVisit(){
+        System.out.println("ask");
+        return "user/askVisit";
     }
 
     /**
@@ -56,6 +55,16 @@ public class UserController {
         model.addAttribute("userMsgImgs",imgs);
         model.addAttribute("userMsg",result);
         return "user/scanMsg";
+    }
+
+    @PostMapping("/uploadAsk")
+    public String uploadAsk(@RequestParam("title") String title,
+                            @RequestParam("file") MultipartFile file, Model model){
+        System.out.println(title);
+        //file对象名记得和前端name属性值一致
+        System.out.println(file.getOriginalFilename());
+
+        return "user/askVisit";
     }
 
 
