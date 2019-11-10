@@ -1,15 +1,19 @@
 package com.springboot.dao.user.impl;
 
 import com.springboot.dao.user.UserDao;
+import com.springboot.domain.Reply;
 import com.springboot.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author eternalSy
@@ -41,6 +45,5 @@ public class UserDaoImpl implements UserDao {
             return user;
         }
         return user;
-
     }
 }

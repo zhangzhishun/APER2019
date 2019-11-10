@@ -7,7 +7,7 @@ package com.springboot.domain;
 public class Reply {
     private Integer REPLY_ID;
     private Integer REPLY_REPOTFORMID;
-    private String REPLY_DOCTOR;
+    private Integer REPLY_DOCTORID;
     private String REPLY_CONTENT;
     private String REPLY_TIME;
     private String REPLY_IMG;
@@ -31,12 +31,12 @@ public class Reply {
         this.REPLY_REPOTFORMID = REPLY_REPOTFORMID;
     }
 
-    public String getREPLY_DOCTOR() {
-        return REPLY_DOCTOR;
+    public Integer getREPLY_DOCTORID() {
+        return REPLY_DOCTORID;
     }
 
-    public void setREPLY_DOCTOR(String REPLY_DOCTOR) {
-        this.REPLY_DOCTOR = REPLY_DOCTOR;
+    public void setREPLY_DOCTORID(Integer REPLY_DOCTORID) {
+        this.REPLY_DOCTORID = REPLY_DOCTORID;
     }
 
     public String getREPLY_CONTENT() {
@@ -68,7 +68,7 @@ public class Reply {
         return "Reply{" +
                 "REPLY_ID=" + REPLY_ID +
                 ", REPLY_REPOTFORMID=" + REPLY_REPOTFORMID +
-                ", REPLY_DOCTOR='" + REPLY_DOCTOR + '\'' +
+                ", REPLY_DOCTOR='" + REPLY_DOCTORID + '\'' +
                 ", REPLY_CONTENT='" + REPLY_CONTENT + '\'' +
                 ", REPLY_TIME='" + REPLY_TIME + '\'' +
                 ", REPLY_IMG='" + REPLY_IMG + '\'' +

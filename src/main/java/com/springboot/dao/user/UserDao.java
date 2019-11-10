@@ -1,7 +1,11 @@
 package com.springboot.dao.user;
 
 import com.springboot.domain.Admin;
+import com.springboot.domain.Reply;
 import com.springboot.domain.User;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author eternalSy
@@ -14,4 +18,5 @@ public interface UserDao {
      * @return User
      */
     User getUserByName(String USER_NAME);
+
 }

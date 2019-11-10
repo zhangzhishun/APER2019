@@ -6,7 +6,7 @@ package com.springboot.domain;
  */
 public class ReportForm {
     private Integer REPORTFORM_ID;
-    private Integer REPORTFORM_USER;
+    private Integer REPORTFORM_USERID;
     private String REPORTFORM_TITLE;
     private String REPORTFORM_CONTENT;
     private String REPORTFORM_TIME;
@@ -25,12 +25,12 @@ public class ReportForm {
         this.REPORTFORM_ID = REPORTFORM_ID;
     }
 
-    public Integer getREPORTFORM_USER() {
-        return REPORTFORM_USER;
+    public Integer getREPORTFORM_USERID() {
+        return REPORTFORM_USERID;
     }
 
-    public void setREPORTFORM_USER(Integer REPORTFORM_USER) {
-        this.REPORTFORM_USER = REPORTFORM_USER;
+    public void setREPORTFORM_USERID(Integer REPORTFORM_USER) {
+        this.REPORTFORM_USERID = REPORTFORM_USER;
     }
 
     public String getREPORTFORM_TITLE() {
@@ -85,7 +85,7 @@ public class ReportForm {
     public String toString() {
         return "ReportForm{" +
                 "REPORTFORM_ID=" + REPORTFORM_ID +
-                ", REPORTFORM_USER=" + REPORTFORM_USER +
+                ", REPORTFORM_USER=" + REPORTFORM_USERID +
                 ", REPORTFORM_TITLE='" + REPORTFORM_TITLE + '\'' +
                 ", REPORTFORM_CONTENT='" + REPORTFORM_CONTENT + '\'' +
                 ", REPORTFORM_TIME='" + REPORTFORM_TIME + '\'' +
