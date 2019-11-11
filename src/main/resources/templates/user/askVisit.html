@@ -26,15 +26,29 @@
             <input type="text" name="content">
         </div>
         <div>
-            科室：
-            <input type="text" name="office">
+            <!-- officeList -->
+            <label>科室：</label>
+            <select class="mui-h5" name="office" style="margin:auto; color:#000;">
+                <!--<option value="">全部</option>-->
+                <span th:each="office:${officeList}">
+                    <option th:value="${office['OFFICE_NAME']}">
+                        <span th:text="${office['OFFICE_NAME']}"></span>
+                    </option>
+                </span>
+            </select>
+        </div>
+        <br>
+        <div>
+            支付截图：
+            <div style="margin: 10px;">
+                <input type="file" name="file" multiple/>
+            </div>
         </div>
         <div>
             文件(可多选)：
             <div style="margin: 10px;">
                 <input type="file" name="file" multiple/>
             </div>
-
         </div>
         <div style="text-align: center;margin: 10px;">
             <p><input type="submit" value="上传" /></p>

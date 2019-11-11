@@ -10,7 +10,7 @@ public class ReportForm {
     private String REPORTFORM_TITLE;
     private String REPORTFORM_CONTENT;
     private String REPORTFORM_TIME;
-    private Integer REPORTFORM_OFFICE;
+    private Integer REPORTFORM_OFFICEID;
     private String REPORTFORM_STATE;
     private String REPORTFORM_IMG;
 
@@ -57,12 +57,12 @@ public class ReportForm {
         this.REPORTFORM_TIME = REPORTFORM_TIME;
     }
 
-    public Integer getREPORTFORM_OFFICE() {
-        return REPORTFORM_OFFICE;
+    public Integer getREPORTFORM_OFFICEID() {
+        return REPORTFORM_OFFICEID;
     }
 
-    public void setREPORTFORM_OFFICE(Integer REPORTFORM_OFFICE) {
-        this.REPORTFORM_OFFICE = REPORTFORM_OFFICE;
+    public void setREPORTFORM_OFFICEID(Integer REPORTFORM_OFFICE) {
+        this.REPORTFORM_OFFICEID = REPORTFORM_OFFICE;
     }
 
     public String getREPORTFORM_STATE() {
@@ -89,7 +89,7 @@ public class ReportForm {
                 ", REPORTFORM_TITLE='" + REPORTFORM_TITLE + '\'' +
                 ", REPORTFORM_CONTENT='" + REPORTFORM_CONTENT + '\'' +
                 ", REPORTFORM_TIME='" + REPORTFORM_TIME + '\'' +
-                ", REPORTFORM_OFFICE=" + REPORTFORM_OFFICE +
+                ", REPORTFORM_OFFICE=" + REPORTFORM_OFFICEID +
                 ", REPORTFORM_STATE='" + REPORTFORM_STATE + '\'' +
                 ", REPORTFORM_IMG='" + REPORTFORM_IMG + '\'' +
                 '}';

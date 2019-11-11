@@ -23,6 +23,6 @@ public class ReportFormDaoImpl implements ReportFormDao {
     public int insertReportForm(ReportForm reportForm) {
         String sql = "INSERT INTO report_form VALUES(?,?,?,?,?,?,?,?)";
         return jdbcTemplate.update(sql,null,reportForm.getREPORTFORM_USERID(),reportForm.getREPORTFORM_TITLE(),reportForm.getREPORTFORM_CONTENT(),reportForm.getREPORTFORM_TIME()
-        ,reportForm.getREPORTFORM_OFFICE(),reportForm.getREPORTFORM_STATE(),reportForm.getREPORTFORM_IMG());
+        ,reportForm.getREPORTFORM_OFFICEID(),reportForm.getREPORTFORM_STATE(),reportForm.getREPORTFORM_IMG());
     }
 }

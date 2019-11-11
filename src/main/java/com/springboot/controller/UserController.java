@@ -3,6 +3,7 @@ package com.springboot.controller;
 import com.springboot.domain.Reply;
 import com.springboot.domain.ReportForm;
 import com.springboot.service.doctor.DoctorLoginAuthService;
+import com.springboot.service.office.OfficeGetService;
 import com.springboot.service.reply.ReplyGetService;
 import com.springboot.service.reportform.ReportFormInsertService;
 import com.springboot.service.user.UserLoginAuthService;
@@ -39,9 +40,12 @@ public class UserController {
     @Autowired
     ReportFormInsertService reportFormInsertServiceImpl;
 
+    @Autowired
+    OfficeGetService officeGetServiceImpl;
     @GetMapping("/toAskVisit")
-    public String toAskVisit(){
+    public String toAskVisit(Model model){
         System.out.println("ask");
+        model.addAttribute("officeList",officeGetServiceImpl.getAllOffice());
         return "user/askVisit";
     }
 
@@ -74,14 +78,16 @@ public class UserController {
         MultipartFile file = null;
         BufferedOutputStream stream = null;
         List<String> fileNames = new ArrayList<>();
-        SimpleDateFormat ftName = new SimpleDateFormat ("yyyyMMddhhmmss");
+        SimpleDateFormat ftName = new SimpleDateFormat ("MMddhhmmss");
+        int random = (int)((Math.random() * 9 + 1) * 10);
         for (int i = 0; i < files.size(); ++i) {
             file = files.get(i);
             // 获取文件名
             String fileName = file.getOriginalFilename();
             // 获取文件的后缀名
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
-            String fileNameTemp = ftName.format(new Date())+""+i+suffixName;
+            /** 文件格式：时分秒+毫秒+两位随机数+序号+后缀名 */
+            String fileNameTemp = ftName.format(new Date())+ random +i+suffixName;
             fileNames.add(fileNameTemp);
             if (!file.isEmpty()) {
                 try {
@@ -98,12 +104,11 @@ public class UserController {
                 return "You failed to upload " + i + " because the file was empty.";
             }
         }
-        String REPORTFORM_IMG = new String(fileNames.get(0));
+        String REPORTFORM_IMG = fileNames.get(0);
         for (int i = 1; i < files.size(); ++i) {
             REPORTFORM_IMG = REPORTFORM_IMG + ";" + fileNames.get(i);
         }
         System.out.println(REPORTFORM_IMG);
-        System.out.println(session.getAttribute("username").toString());
         reportFormInsertServiceImpl.insertReportForm(session.getAttribute("username").toString(),title,content,office,REPORTFORM_IMG);
         return "success";
     }
