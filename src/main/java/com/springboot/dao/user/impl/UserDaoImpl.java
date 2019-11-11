@@ -47,4 +47,11 @@ public class UserDaoImpl implements UserDao {
         }
         return user;
     }
+
+    @Override
+    public int userRegister(User user) {
+        String sql = "INSERT INTO user VALUES(?,?,?,?,?,?,?)";
+        return jdbcTemplate.update(sql,null,user.getUSER_NAME(),user.getUSER_PASSWORD(),user.getUSER_PHONE(),user.getUSER_SEX(),
+                user.getUSER_REALNAME(),user.getUSER_WECHAT());
+    }
 }
