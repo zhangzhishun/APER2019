@@ -16,11 +16,17 @@
     <h1 class="mui-title">用户注册</h1>
 </header>
 <div class="mui-content" style="margin: 20px 10px 0px 10px">
-    <form id="apply_link_form" >
-        <span>用户名(登录名)：</span>
-        <input type="text" name="USER_NAME">
-        <!-- 问题代码 -->
-        <input id="checkName" type="submit" value="检查"/>
+
+    <span>用户名(登录名)：</span>
+    <div>
+        <div style="width: 50%; position: absolute;">
+            <input type="text" name="USER_NAME" style="display:block">
+        </div>
+        <div style="margin-left: 55%;">
+            <input name="checkName" type="submit" value="检用户名是否可用" style="display:block"/>
+        </div>
+    </div>
+    <br>
         <span>密码：</span>
         <input type="text" name="USER_PASSWORD">
         <span>手机号：</span>
@@ -32,16 +38,14 @@
         <span>微信：</span>
         <input type="text" name="USER_WECHAT">
 
-    </form>
     <div style="text-align: center;margin: 10px;">
-        <p><input id="register" type="submit" value="注册"/></p>
+        <p><input name="register" type="submit" value="注册"/></p>
     </div>
 </div>
 
-<script>
-    $("#checkName").click(function(){
-        $.post("./checkName",
-            {
+<script type="text/javascript">
+    $("input[name='checkName']").click(function(){
+        $.post("./checkName", {
                 USER_NAME:$("input[name='USER_NAME']").val(),
             },
             function(data,status){
@@ -53,7 +57,7 @@
             });
     });
 
-    $("#register").click(function(){
+    $("input[name='register']").click(function(){
         $.post("./registerPost",
             {
                 USER_NAME:$("input[name='USER_NAME']").val(),
