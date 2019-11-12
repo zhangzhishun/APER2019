@@ -1,5 +1,6 @@
 package com.springboot.controller;
 
+import com.springboot.domain.Advice;
 import com.springboot.domain.Reply;
 import com.springboot.domain.ReportForm;
 import com.springboot.service.doctor.DoctorLoginAuthService;
@@ -7,6 +8,8 @@ import com.springboot.service.office.OfficeGetService;
 import com.springboot.service.reply.ReplyGetService;
 import com.springboot.service.reportform.ReportFormInsertService;
 import com.springboot.service.user.UserLoginAuthService;
+import com.springboot.service.user.UserSubmitAdviceService;
+import com.springboot.service.user.impl.UserGetServiceImpl;
 import org.omg.CORBA.ObjectHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,15 +36,14 @@ public class UserController {
 
     @Autowired
     UserLoginAuthService userLoginAuthServiceImpl;
-
     @Autowired
     ReplyGetService replyGetServiceImpl;
-
     @Autowired
     ReportFormInsertService reportFormInsertServiceImpl;
-
     @Autowired
     OfficeGetService officeGetServiceImpl;
+
+
     @GetMapping("/toAskVisit")
     public String toAskVisit(Model model){
         System.out.println("ask");
@@ -111,6 +113,29 @@ public class UserController {
         System.out.println(REPORTFORM_IMG);
         reportFormInsertServiceImpl.insertReportForm(session.getAttribute("username").toString(),title,content,office,REPORTFORM_IMG);
         return "success";
+    }
+    @Autowired
+    UserSubmitAdviceService userSubmitAdviceServiceImpl;
+    @Autowired
+    UserGetServiceImpl userGetServiceImpl;
+    /** 反馈GET处理 */
+    @RequestMapping("/advice")
+    public String ADVICE(){
+        return "user/advice";
+    }
+
+    /** 反馈POST处理 */
+    @PostMapping("/adviceSubmit")
+    @ResponseBody
+    public String ADVICESubmit(@RequestParam("ADVICE_TITLE")String ADVICE_TITLE,@RequestParam("ADVICE_CONTENT")String ADVICE_CONTENT,HttpSession session){
+        Advice advice = new Advice();
+        advice.setADVICE_CONTENT(ADVICE_CONTENT);
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+        advice.setADVICE_TIME(ft.format(new Date()));
+        advice.setADVICE_TITLE(ADVICE_TITLE);
+        advice.setUSER_ID(userGetServiceImpl.getIdByName(session.getAttribute("username").toString()));
+        int result = userSubmitAdviceServiceImpl.insertADVICE(advice);
+        return String.valueOf(result);
     }
 
 
