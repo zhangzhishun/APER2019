@@ -11,6 +11,7 @@ public class Reply {
     private String REPLY_CONTENT;
     private String REPLY_TIME;
     private String REPLY_IMG;
+    private String REPLY_STATE;
 
     public Reply() {
     }
@@ -63,15 +64,24 @@ public class Reply {
         this.REPLY_IMG = REPLY_IMG;
     }
 
+    public String getREPLY_STATE() {
+        return REPLY_STATE;
+    }
+
+    public void setREPLY_STATE(String REPLY_STATE) {
+        this.REPLY_STATE = REPLY_STATE;
+    }
+
     @Override
     public String toString() {
         return "Reply{" +
                 "REPLY_ID=" + REPLY_ID +
                 ", REPLY_REPOTFORMID=" + REPLY_REPOTFORMID +
-                ", REPLY_DOCTOR='" + REPLY_DOCTORID + '\'' +
+                ", REPLY_DOCTORID=" + REPLY_DOCTORID +
                 ", REPLY_CONTENT='" + REPLY_CONTENT + '\'' +
                 ", REPLY_TIME='" + REPLY_TIME + '\'' +
                 ", REPLY_IMG='" + REPLY_IMG + '\'' +
+                ", REPLY_STATE='" + REPLY_STATE + '\'' +
                 '}';
     }
 }

@@ -3,12 +3,15 @@ package com.springboot.controller;
 import com.springboot.domain.Advice;
 import com.springboot.domain.Reply;
 import com.springboot.domain.ReportForm;
+import com.springboot.domain.User;
 import com.springboot.service.doctor.DoctorLoginAuthService;
 import com.springboot.service.office.OfficeGetService;
 import com.springboot.service.reply.ReplyGetService;
 import com.springboot.service.reportform.ReportFormInsertService;
 import com.springboot.service.user.UserLoginAuthService;
+import com.springboot.service.user.UserReadMsgService;
 import com.springboot.service.user.UserSubmitAdviceService;
+import com.springboot.service.user.UserUpdateService;
 import com.springboot.service.user.impl.UserGetServiceImpl;
 import org.omg.CORBA.ObjectHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +49,6 @@ public class UserController {
 
     @GetMapping("/toAskVisit")
     public String toAskVisit(Model model){
-        System.out.println("ask");
         model.addAttribute("officeList",officeGetServiceImpl.getAllOffice());
         return "user/askVisit";
     }
@@ -56,7 +58,7 @@ public class UserController {
      * */
     @GetMapping("/getREPLYID/{REPLY_ID}")
     public String getREPLYID(@PathVariable("REPLY_ID") String REPLY_ID, Model model){
-        System.out.println(REPLY_ID);
+        //System.out.println(REPLY_ID);
         List<Map<String,Object>> result = replyGetServiceImpl.getReplyByREPLYID(REPLY_ID);
         List<String> imgs = new ArrayList<>();
         for (Map<String,Object>map:result
@@ -111,9 +113,22 @@ public class UserController {
             REPORTFORM_IMG = REPORTFORM_IMG + ";" + fileNames.get(i);
         }
         System.out.println(REPORTFORM_IMG);
-        reportFormInsertServiceImpl.insertReportForm(session.getAttribute("username").toString(),title,content,office,REPORTFORM_IMG);
+
+        /** 组装成ReportForm对象 */
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+        ReportForm reportForm = new ReportForm();
+        reportForm.setREPORTFORM_OFFICEID(officeGetServiceImpl.getOfficeIdByName(office));
+        reportForm.setREPORTFORM_IMG(REPORTFORM_IMG);
+        reportForm.setREPORTFORM_CONTENT(content);
+        reportForm.setREPORTFORM_STATE("0");
+        reportForm.setREPORTFORM_TIME(ft.format(new Date()));
+        reportForm.setREPORTFORM_TITLE(title);
+        reportForm.setREPORTFORM_USERID(userGetServiceImpl.getIdByName(session.getAttribute("username").toString()));
+        reportFormInsertServiceImpl.insertReportForm(reportForm);
         return "success";
     }
+
+
     @Autowired
     UserSubmitAdviceService userSubmitAdviceServiceImpl;
     @Autowired
@@ -138,5 +153,43 @@ public class UserController {
         return String.valueOf(result);
     }
 
+    @Autowired
+    UserUpdateService userUpdateServiceImpl;
 
+    /** 更改用户信息 */
+    @RequestMapping("/updateUser")
+    public String updateUser(Model model,HttpSession httpSession){
+        httpSession.getAttribute("username");
+        User user = userGetServiceImpl.getUserByName(httpSession.getAttribute("username").toString());
+        System.out.println(user.toString());
+        model.addAttribute("user",user);
+        return "user/updateUser";
+    }
+
+    @PostMapping("/updateUserPost")
+    @ResponseBody
+    public String updateUserPost(@RequestParam("USER_NAME")String USER_NAME,@RequestParam("USER_PASSWORD")String USER_PASSWORD,
+                               @RequestParam("USER_PHONE")String USER_PHONE, @RequestParam("USER_SEX")String USER_SEX,
+                               @RequestParam("USER_REALNAME")String USER_REALNAME,@RequestParam("USER_WECHAT")String USER_WECHAT,
+                               Model model){
+        User user = new User();
+        user.setUSER_PASSWORD(USER_PASSWORD);
+        user.setUSER_NAME(USER_NAME);
+        user.setUSER_WECHAT(USER_WECHAT);
+        user.setUSER_REALNAME(USER_REALNAME);
+        user.setUSER_SEX(USER_SEX);
+        user.setUSER_PHONE(USER_PHONE);
+        int result = userUpdateServiceImpl.userUpdate(user);
+        return String.valueOf(result);
+    }
+
+    @Autowired
+    UserReadMsgService userReadMsgServiceImpl;
+
+    @PostMapping("/getREPLYID/updateReplyState")
+    @ResponseBody
+    public String updateReplyState(@RequestParam("REPLY_ID") String REPLY_ID){
+        System.out.println(REPLY_ID);
+        return String.valueOf(userReadMsgServiceImpl.userReadMsg(REPLY_ID));
+    }
 }

@@ -29,16 +29,7 @@ public class ReportFormInsertServiceImpl implements ReportFormInsertService {
     @Autowired
     OfficeGetService officeGetServiceImpl;
     @Override
-    public boolean insertReportForm(String REPORTFORM_USERNAME, String REPORTFORM_TITLE, String REPORTFORM_CONTENT, String REPORTFORM_OFFICENAME, String REPORTFORM_IMG) {
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
-        ReportForm reportForm = new ReportForm();
-        reportForm.setREPORTFORM_OFFICEID(officeGetServiceImpl.getOfficeIdByName(REPORTFORM_OFFICENAME));
-        reportForm.setREPORTFORM_IMG(REPORTFORM_IMG);
-        reportForm.setREPORTFORM_CONTENT(REPORTFORM_CONTENT);
-        reportForm.setREPORTFORM_STATE("0");
-        reportForm.setREPORTFORM_TIME(ft.format(new Date()));
-        reportForm.setREPORTFORM_TITLE(REPORTFORM_TITLE);
-        reportForm.setREPORTFORM_USERID(userGetServiceImpl.getIdByName(REPORTFORM_USERNAME));
+    public boolean insertReportForm(ReportForm reportForm) {
         reportFormDao.insertReportForm(reportForm);
         return true;
     }

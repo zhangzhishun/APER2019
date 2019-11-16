@@ -17,7 +17,7 @@ public class AdminLoginAuthServiceImpl implements AdminLoginAuthService {
     @Override
     public boolean adminLoginAuth(Admin login) {
         boolean result = false;
-        System.out.println("Service" + login.getADMIN_NAME());
+        //System.out.println("Service" + login.getADMIN_NAME());
         Admin adminInSql = adminDaoImpl.getAdminByName(login.getADMIN_NAME());
         if(adminInSql != null && adminInSql.getADMIN_PASSWORD().equals(login.getADMIN_PASSWORD())){
             result = true;

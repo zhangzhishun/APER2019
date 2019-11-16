@@ -5,6 +5,7 @@ import com.springboot.domain.Doctor;
 import com.springboot.domain.User;
 import com.springboot.service.admin.AdminLoginAuthService;
 import com.springboot.service.doctor.DoctorLoginAuthService;
+import com.springboot.service.property.PropertyGetService;
 import com.springboot.service.reply.ReplyGetService;
 import com.springboot.service.user.UserLoginAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class LoginController {
     @Autowired
     ReplyGetService replyGetServiceImpl;
 
+    @Autowired
+    PropertyGetService propertyGetServiceImpl;
+
     @GetMapping("/login")
     public String loginGet(){
         return "login";
@@ -53,9 +57,18 @@ public class LoginController {
                 /** 如果登陆成功 */
                 List<Map<String, Object>> userReply;
                 userReply = replyGetServiceImpl.getReplyByUSERNAME(username);
+                /** 统计有多少未读消息 */
+                Integer unReadNumber = 0;
+                for (Map<String, Object> re : userReply) {
+                    if(re.get("REPLY_STATE").equals("0")){
+                        unReadNumber++;
+                    }
+                }
                 model.addAttribute("userMsg",userReply);
+                model.addAttribute("fee",propertyGetServiceImpl.getPropertyByPROPERTYNAME("fee"));
+                model.addAttribute("unReadNumber",String.valueOf(unReadNumber));
                 session.setAttribute("username",username);
-                return type + "/main";
+                return "user/main";
             }else{
                 //登陆失败
                 map.put("msg", "用户名密码错误");
@@ -69,7 +82,7 @@ public class LoginController {
             flag = doctorLoginAuthServiceImpl.doctorLoginAuth(login);
             if(flag){
                 session.setAttribute("loginUser",username);
-                return type + "/main";
+                return "doctor/main";
             }else{
                 //登陆失败
                 map.put("msg", "用户名密码错误");
@@ -82,7 +95,7 @@ public class LoginController {
             flag = adminLoginAuthServiceImpl.adminLoginAuth(login);
             if(flag){
                 session.setAttribute("loginUser",username);
-                return type + "/main";
+                return "admin/main";
             }else{
                 //登陆失败
                 map.put("msg", "用户名密码错误");

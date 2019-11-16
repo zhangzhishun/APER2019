@@ -14,6 +14,6 @@ public interface ReportFormInsertService {
     /**
      * 向ReportForm插入数据
      * @return boolean*/
-    boolean insertReportForm(String REPORTFORM_USERNAME,String REPORTFORM_TITLE,String REPORTFORM_CONTENT,String REPORTFORM_OFFICENAME,String REPORTFORM_IMG);
+    boolean insertReportForm(ReportForm reportForm);
 
 }

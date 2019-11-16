@@ -20,4 +20,10 @@ public class UserGetServiceImpl implements UserGetService {
         User userInSql = userDaoImpl.getUserByName(USER_NAME);
         return userInSql.getUSER_ID();
     }
+
+    @Override
+    public User getUserByName(String USER_NAME) {
+        User userInSql = userDaoImpl.getUserByName(USER_NAME);
+        return userInSql;
+    }
 }

@@ -34,6 +34,7 @@ public class UserDaoImpl implements UserDao {
                 public User mapRow(ResultSet rs, int paramInt) throws SQLException {
                     User c = new User();
                     c.setUSER_ID(rs.getInt("USER_ID"));
+                    c.setUSER_NAME(USER_NAME);
                     c.setUSER_PASSWORD(rs.getString("USER_PASSWORD"));
                     c.setUSER_PHONE(rs.getString("USER_PHONE"));
                     c.setUSER_SEX(rs.getString("USER_SEX"));
@@ -53,5 +54,18 @@ public class UserDaoImpl implements UserDao {
         String sql = "INSERT INTO user VALUES(?,?,?,?,?,?,?)";
         return jdbcTemplate.update(sql,null,user.getUSER_NAME(),user.getUSER_PASSWORD(),user.getUSER_PHONE(),user.getUSER_SEX(),
                 user.getUSER_REALNAME(),user.getUSER_WECHAT());
+    }
+
+    @Override
+    public int userUpdate(User user) {
+        String sql = "UPDATE user " +
+                "SET USER_PASSWORD = ?," +
+                "USER_PHONE = ?," +
+                "USER_SEX = ?," +
+                "USER_REALNAME = ?," +
+                "USER_WECHAT = ?" +
+                "WHERE USER_NAME = ?";
+        return jdbcTemplate.update(sql,user.getUSER_PASSWORD(),user.getUSER_PHONE(),user.getUSER_SEX(),
+                user.getUSER_REALNAME(),user.getUSER_WECHAT(),user.getUSER_NAME());
     }
 }

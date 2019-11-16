@@ -1,7 +1,5 @@
 package com.springboot.dao.reply;
 
-import com.springboot.domain.User;
-
 import java.util.List;
 import java.util.Map;
 
@@ -22,4 +20,10 @@ public interface ReplyDao {
      * @return List<Map<String, Object>>
      */
     List<Map<String, Object>> getReplyByREPLYID(String REPLY_ID);
+
+    /**
+     * 根据用户名获取用户所有回复 以对象形式返回
+     * @return List<Map<String, Object>>
+     */
+    Integer updateReplyState(String REPLY_ID,Integer newState);
 }

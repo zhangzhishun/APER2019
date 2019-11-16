@@ -22,4 +22,10 @@ public interface UserDao {
      */
     int userRegister(User user);
 
+    /**
+     * 用户注册
+     * @return int
+     */
+    int userUpdate(User user);
+
 }

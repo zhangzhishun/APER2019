@@ -13,4 +13,10 @@ public interface UserGetService {
      * */
     Integer getIdByName(String USER_NAME);
 
+    /**
+     * 根据USER_NAME获取USE对象
+     * @return boolean
+     * */
+    User getUserByName(String USER_NAME);
+
 }

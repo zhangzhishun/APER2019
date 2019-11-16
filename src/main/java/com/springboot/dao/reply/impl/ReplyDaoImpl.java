@@ -26,7 +26,7 @@ public class ReplyDaoImpl implements ReplyDao {
     public List<Map<String, Object>> getReplyByUSERNAME(String USER_NAME){
         String sql = "SELECT * FROM user,reply,report_form " +
                 "WHERE reply.REPLY_REPOTFORMID = report_form.REPORTFORM_ID " +
-                "AND report_form.REPORTFORM_USERID = user.USER_ID AND user.USER_NAME=?";
+                "AND report_form.REPORTFORM_USERID = user.USER_ID AND user.USER_NAME=? ORDER BY reply.REPLY_TIME DESC";
         List<Map<String, Object>> reply = jdbcTemplate.queryForList(sql,new Object[]{USER_NAME});
         for (Map<String,Object> re : reply) {
             System.out.println(re);
@@ -44,5 +44,11 @@ public class ReplyDaoImpl implements ReplyDao {
             System.out.println(re);
         }
         return reply;
+    }
+
+    @Override
+    public Integer updateReplyState(String REPLY_ID,Integer newState) {
+        String sql = "UPDATE reply SET REPLY_STATE = ? WHERE REPLY_ID = ?";
+        return jdbcTemplate.update(sql,newState,REPLY_ID);
     }
 }
