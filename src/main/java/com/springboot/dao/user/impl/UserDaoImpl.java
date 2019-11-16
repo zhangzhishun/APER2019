@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +51,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public List<Map<String, Object>> getUser() {
+        String sql = "SELECT * FROM user";
+        List<Map<String, Object>> user = jdbcTemplate.queryForList(sql);
+        for (Map<String,Object> re : user) {
+            System.out.println(re);
+        }
+        return user;
+    }
+
+    @Override
     public int userRegister(User user) {
         String sql = "INSERT INTO user VALUES(?,?,?,?,?,?,?)";
         return jdbcTemplate.update(sql,null,user.getUSER_NAME(),user.getUSER_PASSWORD(),user.getUSER_PHONE(),user.getUSER_SEX(),
@@ -67,5 +78,12 @@ public class UserDaoImpl implements UserDao {
                 "WHERE USER_NAME = ?";
         return jdbcTemplate.update(sql,user.getUSER_PASSWORD(),user.getUSER_PHONE(),user.getUSER_SEX(),
                 user.getUSER_REALNAME(),user.getUSER_WECHAT(),user.getUSER_NAME());
+    }
+
+    @Override
+    public int deleteUser(Integer USER_ID) {
+        String sql = "DELETE FROM user " +
+                "WHERE USER_ID = ?";
+        return jdbcTemplate.update(sql,USER_ID);
     }
 }

@@ -29,7 +29,6 @@
 			<input type="hidden" name="type" id="type" value="">
 			<button id="btn1" type="button" class="btn btn-primary btn-sm" onClick="userLogin()">用户登陆</button>
 			<button id="btn2" type="button" class="btn btn-primary btn-sm" onClick="doctorLogin()">医生登陆</button>
-			<button id="btn3" type="button" class="btn btn-primary btn-sm" onclick="adminLogin()">管理员登录</button>
 			<div style="text-align: right">
 				<a class="btn btn-link" href="./register" style="font-size:12px;">注册</a>
 			</div>
@@ -42,10 +41,6 @@
 		}
 		function doctorLogin() {
 			$("#type").attr("value","doctor");
-			document.loginForm.submit();
-		}
-		function adminLogin() {
-			$("#type").attr("value","admin");
 			document.loginForm.submit();
 		}
 	</script>

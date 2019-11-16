@@ -95,7 +95,7 @@ public class LoginController {
             flag = adminLoginAuthServiceImpl.adminLoginAuth(login);
             if(flag){
                 session.setAttribute("loginUser",username);
-                return "admin/main";
+                return "redirect:admin/main.html";
             }else{
                 //登陆失败
                 map.put("msg", "用户名密码错误");

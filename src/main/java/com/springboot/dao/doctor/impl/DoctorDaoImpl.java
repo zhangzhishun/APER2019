@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author eternalSy
@@ -44,5 +46,22 @@ public class DoctorDaoImpl implements DoctorDao {
         }
         return doctor;
 
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllDoctor() {
+        String sql = "SELECT * FROM doctor";
+        List<Map<String, Object>> doctor = jdbcTemplate.queryForList(sql);
+        for (Map<String,Object> re : doctor) {
+            System.out.println(re);
+        }
+        return doctor;
+    }
+
+    @Override
+    public int doctorDelete(Integer DOCTOR_ID) {
+        String sql = "DELETE FROM doctor " +
+                "WHERE DOCTOR_ID = ?";
+        return jdbcTemplate.update(sql,DOCTOR_ID);
     }
 }
