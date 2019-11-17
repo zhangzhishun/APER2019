@@ -13,7 +13,7 @@
 	</head>
 	<body class="text-center">
 		<form class="form-signin" action="./login" name="loginForm" method="post">
-			<img class="mb-4" src="img/head.png" alt="头像" width="90" height="90">
+			<img class="mb-4" src="./static/img/public/head.png" alt="头像" width="90" height="90">
 			<h1 class="h3 mb-3 font-weight-normal">用户登录</h1>
 			<!--判断-->
 			<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>

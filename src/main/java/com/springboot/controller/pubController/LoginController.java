@@ -37,9 +37,14 @@ public class LoginController {
     @Autowired
     PropertyGetService propertyGetServiceImpl;
 
-    @GetMapping("/login")
-    public String loginGet(){
-        return "login";
+    @GetMapping("/userMain")
+    public String userMainHtml(){
+        return "user/main";
+    }
+
+    @GetMapping("/doctorMain")
+    public String doctorMainHtml(){
+        return "doctor/main";
     }
 
     @PostMapping("/login")
@@ -68,7 +73,7 @@ public class LoginController {
                 model.addAttribute("fee",propertyGetServiceImpl.getPropertyByPROPERTYNAME("fee"));
                 model.addAttribute("unReadNumber",String.valueOf(unReadNumber));
                 session.setAttribute("username",username);
-                return "user/main";
+                return "redirect:userMain";
             }else{
                 //登陆失败
                 map.put("msg", "用户名密码错误");
@@ -82,20 +87,7 @@ public class LoginController {
             flag = doctorLoginAuthServiceImpl.doctorLoginAuth(login);
             if(flag){
                 session.setAttribute("loginUser",username);
-                return "doctor/main";
-            }else{
-                //登陆失败
-                map.put("msg", "用户名密码错误");
-                return "login";
-            }
-        }else if(type.equals("adminController")){
-            Admin login = new Admin();
-            login.setADMIN_NAME(username);
-            login.setADMIN_PASSWORD(password);
-            flag = adminLoginAuthServiceImpl.adminLoginAuth(login);
-            if(flag){
-                session.setAttribute("loginUser",username);
-                return "redirect:admin/main.html";
+                return "redirect:doctorMain";
             }else{
                 //登陆失败
                 map.put("msg", "用户名密码错误");
