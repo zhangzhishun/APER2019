@@ -7,6 +7,7 @@ import com.springboot.domain.User;
 import com.springboot.service.doctor.DoctorLoginAuthService;
 import com.springboot.service.office.OfficeGetService;
 import com.springboot.service.reply.ReplyGetService;
+import com.springboot.service.reportform.ReportFormGetService;
 import com.springboot.service.reportform.ReportFormInsertService;
 import com.springboot.service.user.UserLoginAuthService;
 import com.springboot.service.user.UserReadMsgService;
@@ -72,6 +73,30 @@ public class UserController {
         model.addAttribute("userMsgImgs",imgs);
         model.addAttribute("userMsg",result);
         return "user/scanMsg";
+    }
+
+    @Autowired
+    ReportFormGetService reportFormGetServiceImpl;
+
+    /**
+     * 返回具体的某一个咨询
+     * */
+    @GetMapping("/getREPORTFORM/{REPORTFORM_ID}")
+    public String getREPORTFORM(@PathVariable("REPORTFORM_ID") String REPORTFORM_ID, Model model){
+        //System.out.println(REPLY_ID);
+        List<Map<String,Object>> result = reportFormGetServiceImpl.getReportFormByREPORTFORM_ID(Integer.valueOf(REPORTFORM_ID));
+        List<String> imgs = new ArrayList<>();
+        for (Map<String,Object>map:result
+             ) {
+            String[] getImgs = map.get("REPORTFORM_IMG").toString().split(";");
+            for (String s:getImgs
+                 ) {
+                imgs.add(s);
+            }
+        }
+        model.addAttribute("reportFormImgs",imgs);
+        model.addAttribute("reportForm",result);
+        return "user/scanReportForm";
     }
 
     @PostMapping("/uploadAsk")

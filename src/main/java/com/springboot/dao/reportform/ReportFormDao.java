@@ -39,4 +39,9 @@ public interface ReportFormDao {
      * @return int
      */
     int ReportFormDelete(Integer REPORTFORM_ID);
+
+    /**
+     * 根据用户ID寻找用户发起的咨询
+     * @return boolean*/
+    List<Map<String,Object>> getReportFormByUSERID(Integer USER_ID);
 }

@@ -7,6 +7,8 @@ import com.springboot.service.admin.AdminLoginAuthService;
 import com.springboot.service.doctor.DoctorLoginAuthService;
 import com.springboot.service.property.PropertyGetService;
 import com.springboot.service.reply.ReplyGetService;
+import com.springboot.service.user.UserGetMyReportService;
+import com.springboot.service.user.UserGetService;
 import com.springboot.service.user.UserLoginAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,13 +39,50 @@ public class LoginController {
     @Autowired
     PropertyGetService propertyGetServiceImpl;
 
+    @Autowired
+    UserGetMyReportService userGetMyReportServiceImpl;
+
+    @Autowired
+    UserGetService userGetServiceImpl;
+
     @GetMapping("/userMain")
-    public String userMainHtml(){
+    public String userMainHtml(HttpSession httpSession,Model model){
+
+        List<Map<String, Object>> userReply;
+        userReply = replyGetServiceImpl.getReplyByUSERNAME(String.valueOf(httpSession.getAttribute("username")));
+        /** 统计有多少未读消息 */
+        Integer unReadNumber = 0;
+        for (Map<String, Object> re : userReply) {
+            if(re.get("REPLY_STATE").equals("0")){
+                unReadNumber++;
+            }
+        }
+        model.addAttribute("userMsg",userReply);
+        model.addAttribute("fee",propertyGetServiceImpl.getPropertyByPROPERTYNAME("fee"));
+        model.addAttribute("unReadNumber",String.valueOf(unReadNumber));
+
+        Integer USER_ID = userGetServiceImpl.getIdByName(String.valueOf(httpSession.getAttribute("username")));
+        System.out.println("USER_ID" + USER_ID);
+        List<Map<String ,Object>> myReport =  userGetMyReportServiceImpl.UserGetMyReportByUSERID(USER_ID);
+        System.out.println("myReport" + myReport);
+        model.addAttribute("myReport",myReport);
         return "user/main";
     }
 
     @GetMapping("/doctorMain")
-    public String doctorMainHtml(){
+    public String doctorMainHtml(HttpSession httpSession,Model model){
+        List<Map<String, Object>> userReply;
+        userReply = replyGetServiceImpl.getReplyByUSERNAME(String.valueOf(httpSession.getAttribute("username")));
+        /** 统计有多少未读消息 */
+        Integer unReadNumber = 0;
+        for (Map<String, Object> re : userReply) {
+            if(re.get("REPLY_STATE").equals("0")){
+                unReadNumber++;
+            }
+        }
+        model.addAttribute("userMsg",userReply);
+        model.addAttribute("fee",propertyGetServiceImpl.getPropertyByPROPERTYNAME("fee"));
+        model.addAttribute("unReadNumber",String.valueOf(unReadNumber));
         return "doctor/main";
     }
 
@@ -60,18 +99,6 @@ public class LoginController {
             flag = userLoginAuthServiceImpl.userLoginAuth(login);
             if(flag){
                 /** 如果登陆成功 */
-                List<Map<String, Object>> userReply;
-                userReply = replyGetServiceImpl.getReplyByUSERNAME(username);
-                /** 统计有多少未读消息 */
-                Integer unReadNumber = 0;
-                for (Map<String, Object> re : userReply) {
-                    if(re.get("REPLY_STATE").equals("0")){
-                        unReadNumber++;
-                    }
-                }
-                model.addAttribute("userMsg",userReply);
-                model.addAttribute("fee",propertyGetServiceImpl.getPropertyByPROPERTYNAME("fee"));
-                model.addAttribute("unReadNumber",String.valueOf(unReadNumber));
                 session.setAttribute("username",username);
                 return "redirect:userMain";
             }else{
@@ -86,7 +113,8 @@ public class LoginController {
             login.toString();
             flag = doctorLoginAuthServiceImpl.doctorLoginAuth(login);
             if(flag){
-                session.setAttribute("loginUser",username);
+                /** 登录成功 */
+                session.setAttribute("username",username);
                 return "redirect:doctorMain";
             }else{
                 //登陆失败

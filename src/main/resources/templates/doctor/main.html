@@ -1,45 +1,153 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <!-- 引入 Bootstrap -->
-    <link href="css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet">
-    <title>医生</title>
-  </head>
-  <body>
-  <div style="text-align:center;">
-      <h3></h3>
-      <form role="form" method="post" action="GoToPages">
-        <div class="form-group">
-          <br>
-          <label for="name">跳转页面</label>
-          <input type="text" class="form-control" name = "acw_sc__v2" id="acw_sc__v2" placeholder="请点击按钮获取acw_sc__v2"
-                 th:value="${acw_sc__v2?.toString()}">
-          <input type="text" class="form-control" name = "pages" id="name" placeholder="请输入页码">
+    <title>用户主页</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://dcloud.io/hellomui/js/mui.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="/aper/webjars/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://dcloud.io/hellomui/css/mui.min.css" rel="stylesheet"/>
+</head><!-- 在头部引入bootstrap的css包与js包 -->
+
+<body>
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item mui-active" href="#tabbar">
+        <span class="mui-icon mui-icon-home"></span>
+        <span class="mui-tab-label">首页</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-msg">
+        <span class="mui-icon mui-icon-email">
+            <span class="mui-badge" th:if="${unReadNumber} != '0'">
+                <span th:text="${unReadNumber}"></span>
+            </span>
+        </span>
+        <span class="mui-tab-label">消息</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-myAsk">
+        <span class="mui-icon mui-icon-email"></span>
+        <span class="mui-tab-label">我的问诊</span>
+    </a>
+    <a class="mui-tab-item" href="#tabbar-with-set">
+        <span class="mui-icon mui-icon-gear"></span>
+        <span class="mui-tab-label">设置</span>
+    </a>
+</nav>
+<div class="mui-content">
+    <!-- 首页 -->
+    <header class="mui-bar mui-bar-nav" >
+        <h1 class="mui-title">首页</h1>
+    </header>
+    <div id="tabbar" class="mui-control-content mui-active" style="margin-top: 60px">
+        <div style="text-align: center">
+            <p>
+                请扫码支付费用 <span th:text="${fee}"></span> 元，记得保存截图哦！
+            </p>
+            <img src="static/img/public/wechatPay.png" data-preview-src="" data-preview-group="1" width="50%">
+            <br><br>
+            <p>
+                <a href="./user/toAskVisit " type="button" class="btn btn-info" >开始问诊</a>
+            </p>
         </div>
+    </div>
+    <!-- 消息 -->
+    <div id="tabbar-with-msg" class="mui-control-content" style="margin-top: 60px">
+        <header class="mui-bar mui-bar-nav">
+            <h1 class="mui-title">消息</h1>
+        </header>
+        <ul class="mui-table-view mui-table-view-chevron">
+            <tr th:each="msg:${userMsg}">
+                <div class="mui-card" >
+                    <a th:href ="@{'./user/getREPLYID/' + ${msg['REPLY_ID']} }">
+                        <!--页眉，放置标题-->
+                        <div class="mui-card-header mui-card-media">
+                            <img src="img/head.png" />
+                            <div class="mui-media-body">
+                                "<td th:text="${msg['REPORTFORM_TITLE']}"></td>"的咨询
+                                <span th:if="${msg['REPLY_STATE']}==0">[未回复]</span>
+                                <br>咨询于<span th:text="${msg['REPLY_TIME']}"></span>
+                            </div>
+                        </div>
+                        <!--内容区-->
+                        <div class="mui-card-content">
+                            <div style="margin:10px 5px">
+                                <td th:text="${msg['REPLY_CONTENT']}"></td>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </tr>
+            <br>
+        </ul>
+    </div>
+    <!-- 我的问诊 -->
+    <div id="tabbar-with-myAsk" class="mui-control-content" style="margin-top: 60px">
+        <header class="mui-bar mui-bar-nav">
+            <h1 class="mui-title">问诊</h1>
+        </header>
+        <div style="text-align: center">
+            <p>
+                请扫码支付费用 <span th:text="${fee}"></span> 元，记得保存截图哦！
+            </p>
+            <img src="static/img/public/wechatPay.png" data-preview-src="" data-preview-group="1" width="50%">
+            <br><br>
+            <p>
+                <a href="./user/toAskVisit " type="button" class="btn btn-info" >开始问诊</a>
+            </p>
+        </div>
+    </div>
+    <!-- 设置 -->
+    <div id="tabbar-with-set" class="mui-control-content" style="margin-top: 60px">
+        <header class="mui-bar mui-bar-nav">
+            <h1 class="mui-title">设置</h1>
+        </header>
+        <ul class="mui-table-view mui-table-view-chevron">
+            <li class="mui-table-view-cell mui-media">
+                <img class="mui-media-object mui-pull-left head-img" id="head-img" src="static/img/assets/logo.png">
+                <div class="mui-media-body">
+                    <span th:text="${session.username}"></span>
+                    <p class="mui-ellipsis">用户名:<span th:text="${session.username}"></span></p>
+                </div>
+            </li>
+        </ul>
 
-        <button type="button" class="btn btn-default" onclick="window.location.href='./getAcw'">获取acw_sc__v2</button>
-        &nbsp;&nbsp;
-          <button type="submit" class="btn btn-default" href="javascript:login()">跳转到该页</button>
-        <br><br>
-        <button type="button" class="btn btn-primary" onclick="window.location.href='./FindAiYueBlog'">查看爱玥博客</button>
-        &nbsp;&nbsp;
-        <button type="button" class="btn btn-primary" onclick="window.location.href='https://blog.csdn.net/qq_36254699'">查看CSDN博客</button>
+        <ul class="mui-table-view" style="margin-top: 25px;">
+            <li class="mui-table-view-cell">
+                <a href="./user/updateUser" class="mui-navigate-right">
+                    修改个人信息
+                </a>
+            </li>
+        </ul>
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell">
+                <a href="./doctor/advice" class="mui-navigate-right">
+                    反馈
+                </a>
+            </li>
+        </ul>
+        <ul class="mui-table-view" style="margin-top: 25px;">
+            <li class="mui-table-view-cell">
+                <a href="./about" class="mui-navigate-right">
+                    关于APP
+                </a>
+            </li>
+        </ul>
+        <ul class="mui-table-view" style="margin-top: 25px;">
+            <li class="mui-table-view-cell">
+                <a href="./exit" style="text-align: center;color: #FF3B30;">
+                    退出登录
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 
-        <br><br>
-        <h5>登录名：<span th:text="${session.loginUser}"></span></h5>
-      </form>
-  </div>
 
-  </body>
+<script>
+    mui.init({
+        swipeBack:true //启用右滑关闭功能
+    });
+</script>
 
-  <script type="text/javascript">
-    function reset(){
-      document.getElementById("userName").value = "";
-      document.getElementById("password").value = "";
-    }
-    function login(){
-      document.getElementById('form').submit();
-    }
-  </script>
-
+</body>
 </html>

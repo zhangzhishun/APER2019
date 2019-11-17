@@ -18,7 +18,7 @@
     </a>
     <a class="mui-tab-item" href="#tabbar-with-ask">
         <span class="mui-icon mui-icon-email"></span>
-        <span class="mui-tab-label">问诊</span>
+        <span class="mui-tab-label">问诊记录</span>
     </a>
     <a class="mui-tab-item" href="#tabbar-with-msg">
         <span class="mui-icon mui-icon-email">
@@ -55,16 +55,29 @@
         <header class="mui-bar mui-bar-nav">
             <h1 class="mui-title">问诊</h1>
         </header>
-        <div style="text-align: center">
-            <p>
-                请扫码支付费用 <span th:text="${fee}"></span> 元，记得保存截图哦！
-            </p>
-            <img src="static/img/public/wechatPay.png" data-preview-src="" data-preview-group="1" width="50%">
-            <br><br>
-            <p>
-                <a href="./user/toAskVisit " type="button" class="btn btn-info" >开始问诊</a>
-            </p>
-        </div>
+        <ul class="mui-table-view mui-table-view-chevron">
+            <tr th:each="myReport:${myReport}">
+                <div class="mui-card" >
+                    <a th:href ="@{'./user/getREPORTFORM/' + ${myReport['REPORTFORM_ID']} }">
+                        <!--页眉，放置标题-->
+                        <div class="mui-card-header mui-card-media">
+                            <img src="./static/img/public/head.png" />
+                            <div class="mui-media-body">
+                                您在<span th:text="${myReport['REPORTFORM_TIME']}"></span>
+                                发起的题目为："<td th:text="${myReport['REPORTFORM_TITLE']}"></td>"的咨询已经成功
+                            </div>
+                        </div>
+                        <!--内容区-->
+                        <div class="mui-card-content">
+                            <div style="margin:10px 5px">
+                                <td th:text="${myReport['REPLY_CONTENT']}"></td>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </tr>
+            <br>
+        </ul>
     </div>
     <!-- 消息 -->
     <div id="tabbar-with-msg" class="mui-control-content" style="margin-top: 60px">

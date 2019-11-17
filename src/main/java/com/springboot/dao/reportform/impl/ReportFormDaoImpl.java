@@ -69,4 +69,15 @@ public class ReportFormDaoImpl implements ReportFormDao {
                 "WHERE REPORTFORM_ID = ?";
         return jdbcTemplate.update(sql,REPORTFORM_ID);
     }
+
+    @Override
+    public List<Map<String, Object>> getReportFormByUSERID(Integer USER_ID) {
+        String sql = "SELECT * FROM report_form " +
+                "WHERE report_form.REPORTFORM_USERID = ?";
+        List<Map<String, Object>> result = jdbcTemplate.queryForList(sql,USER_ID);
+        for (Map<String,Object> re : result) {
+            System.out.println(re);
+        }
+        return result;
+    }
 }
