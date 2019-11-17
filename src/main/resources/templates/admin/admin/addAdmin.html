@@ -136,30 +136,21 @@
         <!-- DataTales Example -->
         <div class="container-fluid" style="width:60% ">
           <div class="form-group">
-            <span> 用户名： </span>
-            <input type="text" name="USER_NAME" placeholder="用户名" class="form-control form-control-user" aria-describedby="emailHelp">
+            <span> 管理员名： </span>
+            <div class="form-group">
+              <div style="width: 30%; position: absolute;">
+                <input type="text" name="ADMIN_NAME" placeholder="管理员名" class="form-control form-control-user" aria-describedby="emailHelp" style="display:block">
+              </div>
+              <div style="margin-left: 70%;">
+                <input class="btn btn-primary btn-user" name="checkName" type="submit" value="检用户名是否可用" style="display:block"/>
+              </div>
+            </div>
           </div>
           <div class="form-group">
-            <span> 用户密码： </span>
-            <input type="text" name="USER_PASSWORD" placeholder="用户密码" class="form-control form-control-user" aria-describedby="emailHelp">
+            <span> 管理员密码： </span>
+            <input type="text" name="ADMIN_PASSWORD" placeholder="管理员密码" class="form-control form-control-user" aria-describedby="emailHelp">
           </div>
-          <div class="form-group">
-            <span> 用户手机号： </span>
-            <input type="text" name="USER_PHONE" placeholder="用户手机号" class="form-control form-control-user" aria-describedby="emailHelp">
-          </div>
-          <div class="form-group">
-            <span> 用户性别： </span>
-            <input type="text" name="USER_SEX" placeholder="用户性别" class="form-control form-control-user" aria-describedby="emailHelp">
-          </div>
-          <div class="form-group">
-            <span> 用户真实名字： </span>
-            <input type="text" name="USER_REALNAME" placeholder="用户真实名字" class="form-control form-control-user" aria-describedby="emailHelp">
-          </div>
-          <div class="form-group">
-            <span> 用户微信号： </span>
-            <input type="text" name="USER_WECHAT" placeholder="用户微信号" class="form-control form-control-user">
-          </div>
-          <p><input class="btn btn-primary btn-user btn-block" name="addUser" type="submit" value="添加用户"/></p>
+          <p><input class="btn btn-primary btn-user btn-block" name="addAdmin" type="submit" value="添加用户"/></p>
           <hr>
 
         </div>
@@ -206,14 +197,23 @@
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
 <script type="text/javascript">
-  $("input[name='addUser']").click(function(){
-    let post = $.post("./addUserPost", {
-              USER_NAME:$("input[name='USER_NAME']").val(),
-              USER_PASSWORD:$("input[name='USER_PASSWORD']").val(),
-              USER_PHONE:$("input[name='USER_PHONE']").val(),
-              USER_SEX:$("input[name='USER_SEX']").val(),
-              USER_REALNAME:$("input[name='USER_REALNAME']").val(),
-              USER_WECHAT:$("input[name='USER_WECHAT']").val(),
+  $("input[name='checkName']").click(function(){
+    $.post("./checkAdminName", {
+              ADMIN_NAME:$("input[name='ADMIN_NAME']").val(),
+            },
+            function(data,status){
+              if(data=="1" && status=="success"){
+                alert("名称可以使用");
+              }else{
+                alert("名称重复，请更换名称");
+              }
+            });
+  });
+
+  $("input[name='addAdmin']").click(function(){
+    let post = $.post("./addAdminPost", {
+              ADMIN_NAME:$("input[name='ADMIN_NAME']").val(),
+              ADMIN_PASSWORD:$("input[name='ADMIN_PASSWORD']").val(),
             },
             function(data,status){
               if(data=="1" && status=="success"){

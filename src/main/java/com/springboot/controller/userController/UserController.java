@@ -1,4 +1,4 @@
-package com.springboot.controller;
+package com.springboot.controller.userController;
 
 import com.springboot.domain.Advice;
 import com.springboot.domain.Reply;

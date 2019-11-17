@@ -27,4 +27,9 @@ public class ReplyGetServiceImpl implements ReplyGetService {
         List<Map<String, Object>> result=  replyDaoImpl.getReplyByREPLYID(REPLY_ID);
         return result;
     }
+
+    @Override
+    public List<Map<String, Object>> getAllReply() {
+        return replyDaoImpl.getReply();
+    }
 }

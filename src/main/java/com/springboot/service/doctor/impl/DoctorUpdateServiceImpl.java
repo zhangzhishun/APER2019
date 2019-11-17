@@ -1,9 +1,8 @@
 package com.springboot.service.doctor.impl;
 
-import com.springboot.dao.user.UserDao;
-import com.springboot.domain.User;
+import com.springboot.dao.doctor.DoctorDao;
+import com.springboot.domain.Doctor;
 import com.springboot.service.doctor.DoctorUpdateService;
-import com.springboot.service.user.UserUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +13,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class DoctorUpdateServiceImpl implements DoctorUpdateService {
     @Autowired
-    UserDao userDaoImpl;
+    DoctorDao doctorDaoImpl;
 
     @Override
-    public int userUpdate(User user) {
-        int result = userDaoImpl.userUpdate(user);
+    public int doctorUpdate(Doctor doctor) {
+        int result = doctorDaoImpl.doctorUpdate(doctor);
         return result;
     }
 }

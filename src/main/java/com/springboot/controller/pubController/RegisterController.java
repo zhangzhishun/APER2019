@@ -1,4 +1,4 @@
-package com.springboot.controller;
+package com.springboot.controller.pubController;
 
 import com.springboot.domain.User;
 import com.springboot.service.user.UserRegisterService;

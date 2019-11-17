@@ -1,4 +1,4 @@
-package com.springboot.controller;
+package com.springboot.controller.pubController;
 
 import com.springboot.domain.Admin;
 import com.springboot.domain.Doctor;
@@ -88,7 +88,7 @@ public class LoginController {
                 map.put("msg", "用户名密码错误");
                 return "login";
             }
-        }else if(type.equals("admin")){
+        }else if(type.equals("adminController")){
             Admin login = new Admin();
             login.setADMIN_NAME(username);
             login.setADMIN_PASSWORD(password);

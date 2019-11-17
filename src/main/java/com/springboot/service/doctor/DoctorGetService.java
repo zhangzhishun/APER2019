@@ -17,4 +17,15 @@ public interface DoctorGetService {
      * */
     List<Map<String,Object>> getAllDoctor();
 
+    /**
+     * 根据用户名获取用户所有信息 以对象形式返回
+     * @return List<Map<String, Object>>
+     */
+    List<Map<String, Object>> getDoctorById(Integer DOCTOR_ID);
+
+    /**
+     * 根据USER_ID获取USER
+     * @return List<Map<String,Object>>
+     * */
+    Doctor getDoctorByDOCTORNAME(String DCOTOR_NAME);
 }

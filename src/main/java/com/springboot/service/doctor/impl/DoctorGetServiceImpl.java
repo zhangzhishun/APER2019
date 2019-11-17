@@ -23,4 +23,14 @@ public class DoctorGetServiceImpl implements DoctorGetService {
     public List<Map<String, Object>> getAllDoctor() {
         return doctorDaoImpl.getAllDoctor();
     }
+
+    @Override
+    public List<Map<String, Object>> getDoctorById(Integer DOCTOR_ID) {
+        return doctorDaoImpl.getDoctorById(DOCTOR_ID);
+    }
+
+    @Override
+    public Doctor getDoctorByDOCTORNAME(String DCOTOR_NAME) {
+        return doctorDaoImpl.getDoctorByName(DCOTOR_NAME);
+    }
 }

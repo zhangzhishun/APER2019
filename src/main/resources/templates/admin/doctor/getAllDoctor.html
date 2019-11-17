@@ -193,8 +193,8 @@
                       <td th:text="${u['DOCTOR_WECHAT']}"></td>
                       <td th:text="${u['DOCTOR_OFFICEID']}"></td>
                       <td>
-                        <a class="btn btn-primary btn-user" th:href ="@{'./updateDoctor/' + ${u['USER_ID']}}">修改</a>
-                        <input class="btn btn-primary btn-user " name="deleteDoctor" type="submit" value="删除"/>
+                        <a class="btn btn-primary btn-user" th:href ="@{'./updateDoctor/' + ${u['DOCTOR_ID']}}">修改</a>
+                        <a class="btn btn-primary btn-user" th:href ="@{'./deleteDoctor/' + ${u['DOCTOR_ID']}}">删除</a>
                         <a class="btn btn-primary btn-user" href ="./addDoctorPage">添加</a>
                         <input th:value="${u['DOCTOR_ID']}" name="DOCTOR_ID" type="submit" style="display: none"/>
                       </td>

@@ -29,7 +29,7 @@ public interface UserGetService {
     Map<String,Object> getUserByUSERID(String USER_ID);
 
     /**
-     * 根据USER_NAME获取USE对象
+     * 获取所有USE对象
      * @return List<Map<String,Object>>
      * */
     List<Map<String,Object>> getUser();

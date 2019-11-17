@@ -1,6 +1,8 @@
 package com.springboot.service.doctor.impl;
 
+import com.springboot.dao.doctor.DoctorDao;
 import com.springboot.dao.user.UserDao;
+import com.springboot.domain.Doctor;
 import com.springboot.domain.User;
 import com.springboot.service.doctor.DoctorRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +15,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class DoctorRegisterServiceImpl implements DoctorRegisterService {
     @Autowired
-    UserDao userDaoImpl;
+    DoctorDao doctorDaoImpl;
 
     @Override
-    public int userRegister(User user) {
-        if(userDaoImpl.getUserByName(user.getUSER_NAME())==null){
-            int result = userDaoImpl.userRegister(user);
+    public int doctorRegister(Doctor doctor) {
+        if(doctorDaoImpl.getDoctorByName(doctor.getDOCTOR_NAME())==null){
+            int result = doctorDaoImpl.doctorRegister(doctor);
             return result;
         }else{
             return -1;
@@ -26,8 +28,8 @@ public class DoctorRegisterServiceImpl implements DoctorRegisterService {
     }
 
     @Override
-    public int checkName(String USER_NAME) {
-        if(userDaoImpl.getUserByName(USER_NAME)==null){
+    public int checkName(String DOCTOR_NAME) {
+        if(doctorDaoImpl.getDoctorByName(DOCTOR_NAME)==null){
             return 1;
         }else{
             return 0;

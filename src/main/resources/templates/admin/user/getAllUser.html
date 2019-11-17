@@ -192,7 +192,7 @@
                       <td th:text="${u['USER_WECHAT']}"></td>
                       <td>
                         <a class="btn btn-primary btn-user" th:href ="@{'./updateUser/' + ${u['USER_ID']}}">修改</a>
-                        <input class="btn btn-primary btn-user " name="deleteUser" type="submit" value="删除"/>
+                        <a class="btn btn-primary btn-user" th:href ="@{'./deleteUser/' + ${u['USER_ID']}}">删除</a>
                         <a class="btn btn-primary btn-user" href ="./addUserPage">添加</a>
                         <input th:value="${u['USER_ID']}" name="USER_ID" type="submit" style="display: none"/>
                       </td>

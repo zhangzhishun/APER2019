@@ -1,5 +1,6 @@
 package com.springboot.service.doctor;
 
+import com.springboot.domain.Doctor;
 import com.springboot.domain.User;
 
 /**
@@ -11,6 +12,6 @@ public interface DoctorUpdateService {
      * 用户更新数据
      * @return int
      * */
-    int userUpdate(User user);
+    int doctorUpdate(Doctor doctor);
 
 }

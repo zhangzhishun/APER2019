@@ -20,4 +20,10 @@ public interface OfficeGetService {
      * @return List<Map<String, Object>>
      */
     Integer getOfficeIdByName(String OFFICE_NAME);
+
+    /**
+     * 根据科室名获取科室ID内容
+     * @return List<Map<String, Object>>
+     */
+    List<Map<String, Object>> getOfficeById(Integer OFFICE_ID);
 }

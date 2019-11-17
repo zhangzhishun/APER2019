@@ -1,4 +1,4 @@
-package com.springboot.controller;
+package com.springboot.controller.pubController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

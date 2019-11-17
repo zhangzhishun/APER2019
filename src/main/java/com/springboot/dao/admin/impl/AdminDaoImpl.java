@@ -23,6 +23,28 @@ public class AdminDaoImpl implements AdminDao {
     JdbcTemplate jdbcTemplate;
 
     @Override
+    public Admin getAdminById(String ADMIN_ID) {
+        String sql = "SELECT * FROM admin WHERE ADMIN_ID=?";
+        Admin admin = null;
+        try{
+            admin = jdbcTemplate.queryForObject(sql, new Object[]{ADMIN_ID}, new RowMapper<Admin>() {
+                @Override
+                public Admin mapRow(ResultSet rs, int paramInt) throws SQLException {
+                    Admin c = new Admin();
+                    c.setADMIN_ID(rs.getInt("ADMIN_ID"));
+                    c.setADMIN_NAME(rs.getString("ADMIN_NAME"));
+                    c.setADMIN_PASSWORD(rs.getString("ADMIN_PASSWORD"));
+                    return c;
+                }
+            });
+        }catch (EmptyResultDataAccessException empty){
+            return admin;
+        }
+        return admin;
+
+    }
+
+    @Override
     public Admin getAdminByName(String ADMIN_NAME) {
         String sql = "SELECT * FROM admin WHERE ADMIN_NAME=?";
         Admin admin = null;
@@ -41,6 +63,37 @@ public class AdminDaoImpl implements AdminDao {
             return admin;
         }
         return admin;
+    }
 
+    @Override
+    public List<Map<String, Object>> getAllAdmin() {
+        String sql = "SELECT * FROM admin";
+        List<Map<String, Object>> admin = jdbcTemplate.queryForList(sql);
+        for (Map<String,Object> re : admin) {
+            System.out.println(re);
+        }
+        return admin;
+    }
+
+    @Override
+    public int adminDelete(Integer ADMIN_ID) {
+        String sql = "DELETE FROM admin " +
+                "WHERE ADMIN_ID = ?";
+        System.out.println("delete");
+        return jdbcTemplate.update(sql,ADMIN_ID);
+    }
+
+    @Override
+    public int adminRegister(Admin admin) {
+        String sql = "INSERT INTO admin VALUES(?,?,?)";
+        return jdbcTemplate.update(sql,null,admin.getADMIN_NAME(),admin.getADMIN_PASSWORD());
+    }
+
+    @Override
+    public int adminUpdate(Admin admin) {
+        String sql = "UPDATE admin " +
+                "SET ADMIN_PASSWORD = ?" +
+                "WHERE ADMIN_NAME = ?";
+        return jdbcTemplate.update(sql,admin.getADMIN_PASSWORD(),admin.getADMIN_NAME());
     }
 }

@@ -32,6 +32,8 @@ public class DoctorDaoImpl implements DoctorDao {
                 @Override
                 public Doctor mapRow(ResultSet rs, int paramInt) throws SQLException {
                     Doctor c = new Doctor();
+                    c.setDOCTOR_NAME(rs.getString("DOCTOR_NAME"));
+                    c.setDOCTOR_ID(rs.getInt("DOCTOR_ID"));
                     c.setDOCTOR_PASSWORD(rs.getString("DOCTOR_PASSWORD"));
                     c.setDOCTOR_REALNAME(rs.getString("DOCTOR_REALNAME"));
                     c.setDOCTOR_SEX(rs.getString("DOCTOR_SEX"));
@@ -49,6 +51,16 @@ public class DoctorDaoImpl implements DoctorDao {
     }
 
     @Override
+    public List<Map<String, Object>> getDoctorById(Integer DOCTOR_ID) {
+        String sql = "SELECT * FROM doctor WHERE DOCTOR_ID =?";
+        List<Map<String, Object>> doctor = jdbcTemplate.queryForList(sql,DOCTOR_ID);
+        for (Map<String,Object> re : doctor) {
+            System.out.println(re);
+        }
+        return doctor;
+    }
+
+    @Override
     public List<Map<String, Object>> getAllDoctor() {
         String sql = "SELECT * FROM doctor";
         List<Map<String, Object>> doctor = jdbcTemplate.queryForList(sql);
@@ -63,5 +75,26 @@ public class DoctorDaoImpl implements DoctorDao {
         String sql = "DELETE FROM doctor " +
                 "WHERE DOCTOR_ID = ?";
         return jdbcTemplate.update(sql,DOCTOR_ID);
+    }
+
+    @Override
+    public int doctorRegister(Doctor doctor) {
+        String sql = "INSERT INTO doctor VALUES(?,?,?,?,?,?,?,?)";
+        return jdbcTemplate.update(sql,null,doctor.getDOCTOR_NAME(),doctor.getDOCTOR_PASSWORD(),
+                doctor.getDOCTOR_REALNAME(),doctor.getDOCTOR_SEX(),doctor.getDOCTOR_PHONE(),doctor.getDOCTOR_WECHAT(),doctor.getDOCTOR_OFFICEID());
+    }
+
+    @Override
+    public int doctorUpdate(Doctor doctor) {
+        String sql = "UPDATE doctor " +
+                "SET DOCTOR_PASSWORD = ?," +
+                "DOCTOR_REALNAME = ?," +
+                "DOCTOR_SEX = ?," +
+                "DOCTOR_PHONE = ?" +
+                "DOCTOR_WECHAT = ?" +
+                "DOCTOR_OFFICEID = ?" +
+                "WHERE USER_NAME = ?";
+        return jdbcTemplate.update(sql,doctor.getDOCTOR_PASSWORD(),doctor.getDOCTOR_REALNAME(),doctor.getDOCTOR_SEX(),doctor.getDOCTOR_PHONE(),
+                doctor.getDOCTOR_WECHAT(),doctor.getDOCTOR_OFFICEID(),doctor.getDOCTOR_NAME());
     }
 }

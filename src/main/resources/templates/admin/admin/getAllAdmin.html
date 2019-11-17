@@ -171,30 +171,22 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>用户ID</th>
-                      <th>用户名</th>
-                      <th>用户密码</th>
-                      <th>用户手机号</th>
-                      <th>用户性别</th>
-                      <th>用户真实名字</th>
-                      <th>用户微信</th>
+                      <th>管理员ID</th>
+                      <th>管理员名</th>
+                      <th>管理员密码</th>
                       <th>操作</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr  th:each="u:${user}">
-                      <td th:text="${u['USER_ID']}"></td>
-                      <td th:text="${u['USER_NAME']}"></td>
-                      <td th:text="${u['USER_PASSWORD']}"></td>
-                      <td th:text="${u['USER_PHONE']}"></td>
-                      <td th:text="${u['USER_SEX']}"></td>
-                      <td th:text="${u['USER_REALNAME']}"></td>
-                      <td th:text="${u['USER_WECHAT']}"></td>
+                    <tr  th:each="u:${admin}">
+                      <td th:text="${u['ADMIN_ID']}"></td>
+                      <td th:text="${u['ADMIN_NAME']}"></td>
+                      <td th:text="${u['ADMIN_PASSWORD']}"></td>
                       <td>
-                        <a class="btn btn-primary btn-user" th:href ="@{'./updateUser/' + ${u['USER_ID']}}">修改</a>
-                        <input class="btn btn-primary btn-user " name="deleteUser" type="submit" value="删除"/>
-                        <a class="btn btn-primary btn-user" href ="./addUserPage">添加</a>
-                        <input th:value="${u['USER_ID']}" name="USER_ID" type="submit" style="display: none"/>
+                        <a class="btn btn-primary btn-user" th:href ="@{'./updateAdmin/' + ${u['ADMIN_ID']}}">修改</a>
+                        <a class="btn btn-primary btn-user" th:href ="@{'./deleteAdmin/' + ${u['ADMIN_ID']}}">删除</a>
+                        <a class="btn btn-primary btn-user" href ="./addAdminPage">添加</a>
+                        <input th:value="${u['ADMIN_ID']}" name="ADMIN_ID" type="submit" style="display: none"/>
                       </td>
                     </tr>
                   </tbody>
@@ -246,9 +238,9 @@
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
   <script type="text/javascript">
-    $("input[name='deleteUser']").click(function(){
-      let post = $.post("./deleteUser", {
-                USER_ID:$("input[name='USER_ID']").val()
+    $("input[name='deleteAdmin']").click(function(){
+      let post = $.post("./deleteAdmin", {
+                ADMIN_ID:$("input[name='ADMIN_ID']").val()
               },
               function(data,status){
                 if(data=="1" && status=="success"){

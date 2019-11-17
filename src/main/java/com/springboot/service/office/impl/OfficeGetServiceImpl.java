@@ -36,4 +36,9 @@ public class OfficeGetServiceImpl implements OfficeGetService {
         }
         return result;
     }
+
+    @Override
+    public List<Map<String, Object>> getOfficeById(Integer OFFICE_ID) {
+        return officeDaoImpl.getOfficeByOFFICEID(OFFICE_ID);
+    }
 }

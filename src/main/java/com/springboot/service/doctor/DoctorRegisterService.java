@@ -1,5 +1,6 @@
 package com.springboot.service.doctor;
 
+import com.springboot.domain.Doctor;
 import com.springboot.domain.User;
 
 /**
@@ -11,12 +12,12 @@ public interface DoctorRegisterService {
      * 用户注册
      * @return int
      * */
-    int userRegister(User user);
+    int doctorRegister(Doctor doctor);
 
     /**
      * 检查用户名是否可用
      * @return int
      * */
-    int checkName(String USER_NAME);
+    int checkName(String DOCTOR_NAME);
 
 }

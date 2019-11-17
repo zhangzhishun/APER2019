@@ -13,4 +13,16 @@ public interface PropertyDao {
      * return List<Map<String,Object>
      **/
     List<Map<String,Object>> getProperty();
+
+    /**
+     * 获取Property
+     * return List<Map<String,Object>
+     **/
+    List<Map<String,Object>> getValue(String key);
+
+    /**
+     * 获取Property
+     * return List<Map<String,Object>
+     **/
+    int updateKey(String key,String newValue);
 }

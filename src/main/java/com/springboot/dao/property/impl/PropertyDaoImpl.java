@@ -27,4 +27,20 @@ public class PropertyDaoImpl implements PropertyDao {
         }
         return property;
     }
+
+    @Override
+    public List<Map<String, Object>> getValue(String key) {
+        String sql = "SELECT * FROM property WHERE PROPERTY_NAME=?";
+        List<Map<String, Object>> property = jdbcTemplate.queryForList(sql,key);
+        return property;
+    }
+
+    @Override
+    public int updateKey(String key, String newValue) {
+        String sql = "UPDATE property " +
+                "SET PROPERTY_VALUE = ?" +
+                "WHERE PROPERTY_NAME = ?";
+        return jdbcTemplate.update(sql,newValue,key);
+    }
+
 }

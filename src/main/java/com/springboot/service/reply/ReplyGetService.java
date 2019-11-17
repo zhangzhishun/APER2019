@@ -20,4 +20,9 @@ public interface ReplyGetService {
      * 获取用户指定一个回复
      * @return Reply*/
     List<Map<String, Object>> getReplyByREPLYID(String REPLY_ID);
+
+    /**
+     * 获取用户指定一个回复
+     * @return Reply*/
+    List<Map<String, Object>> getAllReply();
 }

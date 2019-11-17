@@ -135,9 +135,14 @@
         <!-- Begin Page Content -->
         <!-- DataTales Example -->
         <div class="container-fluid" style="width:60% ">
+          <span> 用户名： </span>
           <div class="form-group">
-            <span> 用户名： </span>
-            <input type="text" name="USER_NAME" placeholder="用户名" class="form-control form-control-user" aria-describedby="emailHelp">
+              <div style="width: 30%; position: absolute;">
+                <input type="text" name="USER_NAME" placeholder="用户名" class="form-control form-control-user" aria-describedby="emailHelp" style="display:block">
+              </div>
+              <div style="margin-left: 70%;">
+                <input class="btn btn-primary btn-user" name="checkName" type="submit" value="检用户名是否可用" style="display:block"/>
+              </div>
           </div>
           <div class="form-group">
             <span> 用户密码： </span>
@@ -206,6 +211,19 @@
 <!-- Page level custom scripts -->
 <script src="js/demo/datatables-demo.js"></script>
 <script type="text/javascript">
+  $("input[name='checkName']").click(function(){
+    $.post("./checkUserName", {
+              USER_NAME:$("input[name='USER_NAME']").val(),
+            },
+            function(data,status){
+              if(data=="1" && status=="success"){
+                alert("名称可以使用");
+              }else{
+                alert("名称重复，请更换名称");
+              }
+            });
+  });
+
   $("input[name='addUser']").click(function(){
     let post = $.post("./addUserPost", {
               USER_NAME:$("input[name='USER_NAME']").val(),
