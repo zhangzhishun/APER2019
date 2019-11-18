@@ -97,7 +97,7 @@ public class UserController {
         MultipartFile file = null;
         BufferedOutputStream stream = null;
         List<String> fileNames = new ArrayList<>();
-        SimpleDateFormat ftName = new SimpleDateFormat ("YYYYMMddhhmmss");
+        SimpleDateFormat ftName = new SimpleDateFormat ("YYYYMMddHHmmss");
         int random = (int)((Math.random() * 9 + 1) * 10);
         for (int i = 0; i < files.size(); ++i) {
             file = files.get(i);
@@ -111,8 +111,8 @@ public class UserController {
             if (!file.isEmpty()) {
                 try {
                     byte[] bytes = file.getBytes();
-                    stream = new BufferedOutputStream(new FileOutputStream(new File("F:\\file\\study\\idea\\JavaWeb\\APER2019\\src\\main\\resources\\static\\img\\reportForm\\"
-                            +fileNameTemp)));
+                    stream = new BufferedOutputStream(new FileOutputStream(new File("C:\\apache-tomcat-9.0.27\\webapps\\aper\\WEB-INF\\classes\\static\\img\\reportForm\\" +fileNameTemp)));
+                    //stream = new BufferedOutputStream(new FileOutputStream(new File("F:\\file\\study\\idea\\JavaWeb\\APER2019\\src\\main\\resources\\static\\img\\reportForm\\" +fileNameTemp)));
                     stream.write(bytes);
                     stream.close();
                 } catch (Exception e) {
@@ -130,7 +130,7 @@ public class UserController {
         System.out.println(REPORTFORM_IMG);
 
         /** 组装成ReportForm对象 */
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
         ReportForm reportForm = new ReportForm();
         reportForm.setREPORTFORM_OFFICEID(officeGetServiceImpl.getOfficeIdByName(office));
         reportForm.setREPORTFORM_IMG(REPORTFORM_IMG);
@@ -160,7 +160,7 @@ public class UserController {
     public String ADVICESubmit(@RequestParam("ADVICE_TITLE")String ADVICE_TITLE,@RequestParam("ADVICE_CONTENT")String ADVICE_CONTENT,HttpSession session){
         Advice advice = new Advice();
         advice.setADVICE_CONTENT(ADVICE_CONTENT);
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
         advice.setADVICE_TIME(ft.format(new Date()));
         advice.setADVICE_TITLE("User:" + ADVICE_TITLE);
         advice.setUSER_ID(userGetServiceImpl.getIdByName(session.getAttribute("username").toString()));

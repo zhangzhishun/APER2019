@@ -141,7 +141,7 @@ public class DoctorController {
     public String ADVICESubmit(@RequestParam("ADVICE_TITLE")String ADVICE_TITLE,@RequestParam("ADVICE_CONTENT")String ADVICE_CONTENT,HttpSession session){
         Advice advice = new Advice();
         advice.setADVICE_CONTENT(ADVICE_CONTENT);
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
         advice.setADVICE_TIME(ft.format(new Date()));
         advice.setADVICE_TITLE("Doctor:" + ADVICE_TITLE);
         advice.setUSER_ID(doctorGetServiceImpl.getDoctorByDOCTORNAME(session.getAttribute("doctorName").toString()).getDOCTOR_ID());
