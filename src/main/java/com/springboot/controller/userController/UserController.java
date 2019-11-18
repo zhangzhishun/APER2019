@@ -140,7 +140,7 @@ public class UserController {
         reportForm.setREPORTFORM_TITLE(title);
         reportForm.setREPORTFORM_USERID(userGetServiceImpl.getIdByName(session.getAttribute("username").toString()));
         reportFormInsertServiceImpl.insertReportForm(reportForm);
-        return "success";
+        return "上传成功！请返回";
     }
 
 
@@ -198,5 +198,16 @@ public class UserController {
         return String.valueOf(result);
     }
 
+    @Autowired
+    UserReadMsgService userReadMsgServiceImpl;
+    /**
+     *  用户点击“我已知晓”
+     *  更改咨询单状态为已阅读[1] */
+    @PostMapping("/updateReplyState")
+    @ResponseBody
+    public String updateReplyState(@RequestParam("REPLY_ID") String REPLY_ID){
+        System.out.println(REPLY_ID);
+        return String.valueOf(userReadMsgServiceImpl.userReadMsg(REPLY_ID));
+    }
 
 }

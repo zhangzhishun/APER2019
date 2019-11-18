@@ -28,9 +28,18 @@
     <input type="text" name="DOCTOR_PHONE" th:value="${doctor['DOCTOR_PHONE']}">
     <span>微信：</span>
     <input type="text" name="DOCTOR_WECHAT" th:value="${doctor['DOCTOR_WECHAT']}">
-    <span>科室：</span>
-    <input type="text" name="DOCTOR_OFFICEID" th:value="${doctor['DOCTOR_OFFICEID']}">
-
+    <div>
+        <!-- officeList -->
+        <label>科室：</label>
+        <select class="mui-h5" name="DOCTOR_OFFICEID" style="margin:auto; color:#000;">
+            <!--<option value="">全部</option>-->
+            <span th:each="office:${officeList}">
+                    <option th:value="${office['OFFICE_ID']}">
+                        <span th:text="${office['OFFICE_NAME']}"></span>
+                    </option>
+                </span>
+        </select>
+    </div>
     <div style="text-align: center;margin: 10px;">
         <p><input name="update" type="submit" value="更新"/></p>
     </div>
@@ -45,7 +54,7 @@
                 DOCTOR_SEX:$("input[name='DOCTOR_SEX']").val(),
                 DOCTOR_PHONE:$("input[name='DOCTOR_PHONE']").val(),
                 DOCTOR_WECHAT:$("input[name='DOCTOR_WECHAT']").val(),
-                DOCTOR_OFFICEID:$("input[name='DOCTOR_OFFICEID']").val(),
+                DOCTOR_OFFICEID:$("select[name='DOCTOR_OFFICEID']").val(),
             },
             function(data,status){
                 if(data=="1" && status=="success"){

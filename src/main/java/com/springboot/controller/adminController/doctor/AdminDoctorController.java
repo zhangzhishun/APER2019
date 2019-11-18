@@ -9,6 +9,7 @@ import com.springboot.service.doctor.DoctorDeleteService;
 import com.springboot.service.doctor.DoctorGetService;
 import com.springboot.service.doctor.DoctorRegisterService;
 import com.springboot.service.doctor.DoctorUpdateService;
+import com.springboot.service.office.OfficeGetService;
 import com.springboot.service.reply.ReplyDeleteService;
 import com.springboot.service.reply.ReplyGetService;
 import com.springboot.service.reply.ReplyInsertService;
@@ -39,6 +40,8 @@ public class AdminDoctorController {
 
     @Autowired
     DoctorGetService doctorGetServiceImpl;
+    @Autowired
+    OfficeGetService officeGetServiceImpl;
     @GetMapping("/getAllDoctor")
     public String getAllDoctor(Model model){
         List<Map<String, Object>> doctor = doctorGetServiceImpl.getAllDoctor();
@@ -51,7 +54,9 @@ public class AdminDoctorController {
     @GetMapping("/updateDoctor/{DOCTOR_ID}")
     public String updateDoctor(@PathVariable("DOCTOR_ID") String DOCTOR_ID, Model model){
         List<Map<String,Object>> doctor = doctorGetServiceImpl.getDoctorById(Integer.valueOf(DOCTOR_ID));
+        List<Map<String,Object>> office = officeGetServiceImpl.getAllOffice();
         model.addAttribute("doctor",doctor);
+        model.addAttribute("officeList",office);
         System.out.println(doctor);
         return "admin/doctor/updateDoctor";
     }

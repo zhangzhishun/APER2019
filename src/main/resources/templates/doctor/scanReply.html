@@ -36,7 +36,8 @@
         <span th:each="reply:${reply }">
             <input type="text" name="REPLY_ID" th:value="${reply['REPLY_ID']}" style="display: none">
             <div style="text-align: center;margin: 10px 10px;">
-                <button id="but_ok" type="button" class="btn btn-primary btn-sm">删除</button>
+                <a  type="button" class="btn btn-primary btn-sm" th:href="@{'../getREPORTFORM/' + ${reply['REPLY_REPOTFORMID']}}">查看咨询内容</a>
+                <button id="but_ok" type="button" class="btn btn-primary btn-sm">删除回复</button>
             </div>
         </span>
     </div>

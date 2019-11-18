@@ -54,6 +54,7 @@
     <div id="tabbar-with-msg" class="mui-control-content" style="margin-top: 60px">
         <header class="mui-bar mui-bar-nav">
             <h1 class="mui-title">消息</h1>
+            <a class="btn" href="./doctorMain" >刷新</a>
         </header>
         <ul class="mui-table-view mui-table-view-chevron">
             <tr th:each="msg:${myReply}">
@@ -86,6 +87,7 @@
 
         <header class="mui-bar mui-bar-nav">
             <h1 class="mui-title">回复记录</h1>
+            <a class="btn" href="./doctorMain" >刷新</a>
         </header>
         <ul class="mui-table-view mui-table-view-chevron">
             <tr th:each="msg:${replyByDOCTORID}">

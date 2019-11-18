@@ -42,7 +42,7 @@
 
     $("button[id='but_ok']").click(function(){
         //alert($("input[name='REPLY_ID']").val());
-        $.post("./updateReplyState", {
+        $.post("../updateReplyState", {
                 REPLY_ID:$("input[name='REPLY_ID']").val(),
             },
             function(data,status){

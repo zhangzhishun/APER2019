@@ -157,6 +157,7 @@ public class DoctorController {
     public String updateDoctor(Model model,HttpSession httpSession){
         Doctor doctor = doctorGetServiceImpl.getDoctorByDOCTORNAME(httpSession.getAttribute("doctorName").toString());
         System.out.println(doctor.toString());
+        model.addAttribute("officeList",officeGetServiceImpl.getAllOffice());
         model.addAttribute("doctor",doctor);
         return "doctor/updateDoctor";
     }
@@ -181,13 +182,4 @@ public class DoctorController {
         return String.valueOf(result);
     }
 
-    @Autowired
-    UserReadMsgService userReadMsgServiceImpl;
-
-    @PostMapping("/getREPLYID/updateReplyState")
-    @ResponseBody
-    public String updateReplyState(@RequestParam("REPLY_ID") String REPLY_ID){
-        System.out.println(REPLY_ID);
-        return String.valueOf(userReadMsgServiceImpl.userReadMsg(REPLY_ID));
-    }
 }

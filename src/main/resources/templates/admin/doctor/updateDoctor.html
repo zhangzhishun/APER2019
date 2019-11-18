@@ -82,9 +82,21 @@
             <span> 医生微信： </span>
             <input type="text" name="DOCTOR_WECHAT" th:value="${doctor['DOCTOR_WECHAT']}" class="form-control form-control-user" aria-describedby="emailHelp">
           </div>
-          <div class="form-group">
+<!--          <div class="form-group">
             <span> 医生科室： </span>
             <input type="text" name="DOCTOR_OFFICEID" th:value="${doctor['DOCTOR_OFFICEID']}" class="form-control form-control-user" aria-describedby="emailHelp">
+          </div>-->
+          <div>
+            <!-- officeList -->
+            <label>科室：</label>
+            <select class="mui-h5" name="DOCTOR_OFFICEID" style="margin:auto; color:#000;">
+              <!--<option value="">全部</option>-->
+              <span th:each="office:${officeList}">
+                    <option th:value="${office['OFFICE_ID']}">
+                        <span th:text="${office['OFFICE_NAME']}"></span>
+                    </option>
+                </span>
+            </select>
           </div>
           <p><input class="btn btn-primary btn-user btn-block" name="updateDoctor" type="submit" value="更新"/></p>
           <hr>
@@ -132,7 +144,7 @@
               DOCTOR_SEX:$("input[name='DOCTOR_SEX']").val(),
               DOCTOR_PHONE:$("input[name='DOCTOR_PHONE']").val(),
               DOCTOR_WECHAT:$("input[name='DOCTOR_WECHAT']").val(),
-              DOCTOR_OFFICEID:$("input[name='DOCTOR_OFFICEID']").val(),
+              DOCTOR_OFFICEID:$("select[name='DOCTOR_OFFICEID']").val(),
             },
             function(data,status){
               if(data=="1" && status=="success"){

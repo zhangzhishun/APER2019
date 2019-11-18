@@ -50,20 +50,30 @@
             </span>
         </li>
         <li class="mui-table-view-cell">
+            附加图片：
             <span th:each="reportFormImgs:${reportFormImgs }">
-                附加图片：<img th:src="@{'../../img/reporimgs/' + ${reportFormImgs}}">
+                <img style="width: 100%" th:src="@{'../../static/img/reportForm/' + ${reportFormImgs}}">
             </span>
         </li>
-        <li class="mui-table-view-cell">
-            <span th:each="reportForm:${reportForm}">
-                回复内容：
-                <input type="text" name="REPLY_CONTENT" placeholder="请输入回复内容" >
-            </span>
-        </li>
+        <!-- 如果已经回复就不在显示回复框和按钮-->
+        <span th:each="reportForm:${reportForm}">
+            <div th:if="${reportForm['REPORTFORM_STATE']}==0">
+                <li class="mui-table-view-cell">
+                    回复内容：
+                    <input type="text" name="REPLY_CONTENT" placeholder="请输入回复内容" >
+                 </li>
+            </div>
+        </span>
     </ul>
-    <div style="text-align: center;margin: 10px 10px;">
-        <button id="but_ok" type="button" class="btn btn-primary btn-sm">回复</button>
-    </div>
+    <!-- 如果已经回复就不在显示回复框和按钮-->
+    <span th:each="reportForm:${reportForm}">
+        <div th:if="${reportForm['REPORTFORM_STATE']}==0">
+            <div style="text-align: center;margin: 10px 10px;">
+                <button id="but_ok" type="button" class="btn btn-primary btn-sm">回复</button>
+            </div>
+        </div>
+    </span>
+
 </div>
 
 <script>
