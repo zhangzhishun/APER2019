@@ -10,8 +10,8 @@ import com.springboot.domain.ReportForm;
 public interface ReplyInsertService {
 
     /**
-     * 向ReportForm插入数据
+     * 向Reply插入数据
      * @return boolean*/
-    int insertReportForm(Reply reply);
+    int insertReply(Reply reply);
 
 }

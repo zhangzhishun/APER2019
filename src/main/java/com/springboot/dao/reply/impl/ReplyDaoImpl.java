@@ -36,6 +36,18 @@ public class ReplyDaoImpl implements ReplyDao {
     }
 
     @Override
+    public List<Map<String, Object>> getGetReplyByDOCTORID(Integer DOCTOR_ID) {
+        String sql = "SELECT * FROM user,reply,report_form " +
+                "WHERE reply.REPLY_REPOTFORMID = report_form.REPORTFORM_ID " +
+                "AND report_form.REPORTFORM_USERID = user.USER_ID AND reply.REPLY_DOCTORID=? ORDER BY reply.REPLY_TIME DESC";
+        List<Map<String, Object>> reply = jdbcTemplate.queryForList(sql,new Object[]{DOCTOR_ID});
+        for (Map<String,Object> re : reply) {
+            System.out.println(re);
+        }
+        return reply;
+    }
+
+    @Override
     public List<Map<String, Object>> getReplyAndUserByREPLYID(String REPLY_ID) {
         String sql = "SELECT * FROM user,reply,report_form " +
                 "WHERE reply.REPLY_REPOTFORMID = report_form.REPORTFORM_ID " +

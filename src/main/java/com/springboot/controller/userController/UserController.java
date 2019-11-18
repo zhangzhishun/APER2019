@@ -1,10 +1,9 @@
 package com.springboot.controller.userController;
 
-import com.springboot.domain.Advice;
-import com.springboot.domain.Reply;
-import com.springboot.domain.ReportForm;
-import com.springboot.domain.User;
+import com.springboot.domain.*;
+import com.springboot.service.doctor.DoctorGetService;
 import com.springboot.service.doctor.DoctorLoginAuthService;
+import com.springboot.service.doctor.DoctorUpdateService;
 import com.springboot.service.office.OfficeGetService;
 import com.springboot.service.reply.ReplyGetService;
 import com.springboot.service.reportform.ReportFormGetService;
@@ -62,15 +61,6 @@ public class UserController {
         //System.out.println(REPLY_ID);
         List<Map<String,Object>> result = replyGetServiceImpl.getReplyByREPLYID(REPLY_ID);
         List<String> imgs = new ArrayList<>();
-        for (Map<String,Object>map:result
-             ) {
-            String[] getImgs = map.get("REPLY_IMG").toString().split(";");
-            for (String s:getImgs
-                 ) {
-                imgs.add(s);
-            }
-        }
-        model.addAttribute("userMsgImgs",imgs);
         model.addAttribute("userMsg",result);
         return "user/scanMsg";
     }
@@ -107,7 +97,7 @@ public class UserController {
         MultipartFile file = null;
         BufferedOutputStream stream = null;
         List<String> fileNames = new ArrayList<>();
-        SimpleDateFormat ftName = new SimpleDateFormat ("MMddhhmmss");
+        SimpleDateFormat ftName = new SimpleDateFormat ("YYYYMMddhhmmss");
         int random = (int)((Math.random() * 9 + 1) * 10);
         for (int i = 0; i < files.size(); ++i) {
             file = files.get(i);
@@ -115,13 +105,13 @@ public class UserController {
             String fileName = file.getOriginalFilename();
             // 获取文件的后缀名
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
-            /** 文件格式：时分秒+毫秒+两位随机数+序号+后缀名 */
+            /** 文件格式：年月日时分秒+毫秒+两位随机数+序号+后缀名 */
             String fileNameTemp = ftName.format(new Date())+ random +i+suffixName;
             fileNames.add(fileNameTemp);
             if (!file.isEmpty()) {
                 try {
                     byte[] bytes = file.getBytes();
-                    stream = new BufferedOutputStream(new FileOutputStream(new File("F:\\file\\study\\idea\\JavaWeb\\APER2019\\src\\main\\resources\\static\\img\\reporimgs\\"
+                    stream = new BufferedOutputStream(new FileOutputStream(new File("F:\\file\\study\\idea\\JavaWeb\\APER2019\\src\\main\\resources\\static\\img\\reportForm\\"
                             +fileNameTemp)));
                     stream.write(bytes);
                     stream.close();
@@ -172,11 +162,12 @@ public class UserController {
         advice.setADVICE_CONTENT(ADVICE_CONTENT);
         SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
         advice.setADVICE_TIME(ft.format(new Date()));
-        advice.setADVICE_TITLE(ADVICE_TITLE);
+        advice.setADVICE_TITLE("User:" + ADVICE_TITLE);
         advice.setUSER_ID(userGetServiceImpl.getIdByName(session.getAttribute("username").toString()));
         int result = userSubmitAdviceServiceImpl.insertADVICE(advice);
         return String.valueOf(result);
     }
+
 
     @Autowired
     UserUpdateService userUpdateServiceImpl;
@@ -184,7 +175,6 @@ public class UserController {
     /** 更改用户信息 */
     @RequestMapping("/updateUser")
     public String updateUser(Model model,HttpSession httpSession){
-        httpSession.getAttribute("username");
         User user = userGetServiceImpl.getUserByName(httpSession.getAttribute("username").toString());
         System.out.println(user.toString());
         model.addAttribute("user",user);
@@ -194,9 +184,9 @@ public class UserController {
     @PostMapping("/updateUserPost")
     @ResponseBody
     public String updateUserPost(@RequestParam("USER_NAME")String USER_NAME,@RequestParam("USER_PASSWORD")String USER_PASSWORD,
-                               @RequestParam("USER_PHONE")String USER_PHONE, @RequestParam("USER_SEX")String USER_SEX,
-                               @RequestParam("USER_REALNAME")String USER_REALNAME,@RequestParam("USER_WECHAT")String USER_WECHAT,
-                               Model model){
+                                 @RequestParam("USER_PHONE")String USER_PHONE, @RequestParam("USER_SEX")String USER_SEX,
+                                 @RequestParam("USER_REALNAME")String USER_REALNAME,@RequestParam("USER_WECHAT")String USER_WECHAT,
+                                 Model model){
         User user = new User();
         user.setUSER_PASSWORD(USER_PASSWORD);
         user.setUSER_NAME(USER_NAME);
@@ -208,13 +198,5 @@ public class UserController {
         return String.valueOf(result);
     }
 
-    @Autowired
-    UserReadMsgService userReadMsgServiceImpl;
 
-    @PostMapping("/getREPLYID/updateReplyState")
-    @ResponseBody
-    public String updateReplyState(@RequestParam("REPLY_ID") String REPLY_ID){
-        System.out.println(REPLY_ID);
-        return String.valueOf(userReadMsgServiceImpl.userReadMsg(REPLY_ID));
-    }
 }

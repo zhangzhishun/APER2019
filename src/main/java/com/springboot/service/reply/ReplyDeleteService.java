@@ -7,8 +7,9 @@ package com.springboot.service.reply;
 public interface ReplyDeleteService {
 
     /**
-     * 向ReportForm插入数据
-     * @return boolean*/
+     * 根据REPLY_ID删除一个reply
+     * @return int
+     * */
     int replyDelete(Integer REPLY_ID);
 
 }

@@ -1,9 +1,12 @@
 package com.springboot.controller.pubController;
 
+import com.springboot.dao.reportform.ReportFormDao;
 import com.springboot.domain.Admin;
 import com.springboot.domain.Doctor;
 import com.springboot.domain.User;
 import com.springboot.service.admin.AdminLoginAuthService;
+import com.springboot.service.doctor.DoctorGetService;
+import com.springboot.service.doctor.DoctorHandleReportFormService;
 import com.springboot.service.doctor.DoctorLoginAuthService;
 import com.springboot.service.property.PropertyGetService;
 import com.springboot.service.reply.ReplyGetService;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +49,11 @@ public class LoginController {
     @Autowired
     UserGetService userGetServiceImpl;
 
+    @GetMapping("login")
+    public String login(){
+        return "login";
+    }
+
     @GetMapping("/userMain")
     public String userMainHtml(HttpSession httpSession,Model model){
 
@@ -69,22 +78,34 @@ public class LoginController {
         return "user/main";
     }
 
+    @Autowired
+    ReportFormDao reportFormDaoImpl;
+    @Autowired
+    DoctorHandleReportFormService doctorHandleReportFormServiceImpl;
     @GetMapping("/doctorMain")
     public String doctorMainHtml(HttpSession httpSession,Model model){
-        List<Map<String, Object>> userReply;
-        userReply = replyGetServiceImpl.getReplyByUSERNAME(String.valueOf(httpSession.getAttribute("username")));
+        List<Map<String, Object>> myReply;
+        Integer DOCTOR_ID = Integer.valueOf(httpSession.getAttribute("doctorId").toString());
+        myReply = reportFormDaoImpl.getGetUnHandleReportFormByDOCTORID(DOCTOR_ID);
         /** 统计有多少未读消息 */
         Integer unReadNumber = 0;
-        for (Map<String, Object> re : userReply) {
-            if(re.get("REPLY_STATE").equals("0")){
+        for (Map<String, Object> re : myReply) {
+            if(re.get("REPORTFORM_STATE").equals("0")){
                 unReadNumber++;
             }
         }
-        model.addAttribute("userMsg",userReply);
+        model.addAttribute("myReply",myReply);
         model.addAttribute("fee",propertyGetServiceImpl.getPropertyByPROPERTYNAME("fee"));
-        model.addAttribute("unReadNumber",String.valueOf(unReadNumber));
+        model.addAttribute("unHandleNumber",String.valueOf(unReadNumber));
+
+        /** 获取医生所有回复 */
+        List<Map<String,Object>> replyByDOCTORID = doctorHandleReportFormServiceImpl.getGetReplyByDOCTORID(Integer.valueOf(DOCTOR_ID));
+        model.addAttribute("replyByDOCTORID",replyByDOCTORID);
         return "doctor/main";
     }
+
+    @Autowired
+    DoctorGetService doctorGetServiceImpl;
 
     @PostMapping("/login")
     public String loginPost(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("type") String type,
@@ -110,11 +131,12 @@ public class LoginController {
             Doctor login = new Doctor();
             login.setDOCTOR_NAME(username);
             login.setDOCTOR_PASSWORD(password);
-            login.toString();
             flag = doctorLoginAuthServiceImpl.doctorLoginAuth(login);
             if(flag){
                 /** 登录成功 */
-                session.setAttribute("username",username);
+                System.out.println(doctorGetServiceImpl.getDoctorByDOCTORNAME(username).getDOCTOR_ID());
+                session.setAttribute("doctorName",username);
+                session.setAttribute("doctorId",doctorGetServiceImpl.getDoctorByDOCTORNAME(username).getDOCTOR_ID());
                 return "redirect:doctorMain";
             }else{
                 //登陆失败

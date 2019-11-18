@@ -9,8 +9,9 @@ import com.springboot.domain.ReportForm;
 public interface ReportFormDeleteService {
 
     /**
-     * 向ReportForm插入数据
-     * @return boolean*/
+     * 根据REPORTFORM_ID删除ReportForm中的一条数据
+     * @return int
+     * */
     int reportFormDelete(Integer REPORTFORM_ID);
 
 }

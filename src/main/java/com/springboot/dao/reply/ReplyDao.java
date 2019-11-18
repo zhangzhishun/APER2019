@@ -20,6 +20,12 @@ public interface ReplyDao {
     List<Map<String, Object>> getReplyByUSERNAME(String USER_NAME);
 
     /**
+     * 根据医生ID获取Reply
+     * @return List<Map<String, Object>>
+     */
+    List<Map<String, Object>> getGetReplyByDOCTORID(Integer DOCTOR_ID);
+
+    /**
      * 根据用户名获取用户所有回复 以对象形式返回
      * @return List<Map<String, Object>>
      */

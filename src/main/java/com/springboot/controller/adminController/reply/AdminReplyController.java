@@ -1,26 +1,10 @@
 package com.springboot.controller.adminController.reply;
 
 import com.springboot.domain.*;
-import com.springboot.service.admin.AdminDeleteService;
-import com.springboot.service.admin.AdminGetService;
-import com.springboot.service.admin.AdminRegisterService;
-import com.springboot.service.admin.AdminUpdateService;
-import com.springboot.service.doctor.DoctorDeleteService;
-import com.springboot.service.doctor.DoctorGetService;
-import com.springboot.service.doctor.DoctorRegisterService;
-import com.springboot.service.doctor.DoctorUpdateService;
 import com.springboot.service.reply.ReplyDeleteService;
 import com.springboot.service.reply.ReplyGetService;
 import com.springboot.service.reply.ReplyInsertService;
 import com.springboot.service.reply.ReplyUpdateService;
-import com.springboot.service.reportform.ReportFormDeleteService;
-import com.springboot.service.reportform.ReportFormGetService;
-import com.springboot.service.reportform.ReportFormInsertService;
-import com.springboot.service.reportform.ReportFormUpdateService;
-import com.springboot.service.user.UserDeleteService;
-import com.springboot.service.user.UserGetService;
-import com.springboot.service.user.UserRegisterService;
-import com.springboot.service.user.UserUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -93,7 +77,7 @@ public class AdminReplyController {
         reply.setREPLY_CONTENT(REPLY_IMG);
         reply.setREPLY_REPOTFORMID(Integer.valueOf(REPLY_REPOTFORMID));
         reply.setREPLY_STATE(REPLY_STATE);
-        return String.valueOf(replyInsertServiceImpl.insertReportForm(reply));
+        return String.valueOf(replyInsertServiceImpl.insertReply(reply));
     }
 
     @Autowired

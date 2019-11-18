@@ -21,17 +21,17 @@
          </span>
         <li class="mui-table-view-cell">
             <span th:each="reportForm:${reportForm}">
+                咨询ID：<span th:text="${reportForm['REPORTFORM_ID']}"></span>
+            </span>
+        </li>
+        <li class="mui-table-view-cell">
+            <span th:each="reportForm:${reportForm}">
                 咨询题目：<span th:text="${reportForm['REPORTFORM_TITLE']}"></span>
             </span>
         </li>
         <li class="mui-table-view-cell">
             <span th:each="reportForm:${reportForm}">
-                资讯内容：<span th:text="${reportForm['REPORTFORM_CONTENT']}"></span>
-            </span>
-        </li>
-        <li class="mui-table-view-cell">
-            <span th:each="reportForm:${reportForm}">
-                咨询时间：<span th:text="${reportForm['REPORTFORM_TIME']}"></span>
+                咨询内容：<span th:text="${reportForm['REPORTFORM_CONTENT']}"></span>
             </span>
         </li>
         <li class="mui-table-view-cell">
@@ -41,20 +41,51 @@
         </li>
         <li class="mui-table-view-cell">
             <span th:each="reportForm:${reportForm}">
+                咨询时间：<span th:text="${reportForm['REPORTFORM_TIME']}"></span>
+            </span>
+        </li>
+        <li class="mui-table-view-cell">
+            <span th:each="reportForm:${reportForm}">
                 咨询状态： <span th:text="${reportForm['REPORTFORM_STATE']}"></span>
             </span>
         </li>
         <li class="mui-table-view-cell">
             <span th:each="reportFormImgs:${reportFormImgs }">
-                <img style="width:100%;display: inline-block;" th:src="@{'../../static/img/reportForm/' + ${reportFormImgs}}">
+                附加图片：<img th:src="@{'../../img/reporimgs/' + ${reportFormImgs}}">
+            </span>
+        </li>
+        <li class="mui-table-view-cell">
+            <span th:each="reportForm:${reportForm}">
+                回复内容：
+                <input type="text" name="REPLY_CONTENT" placeholder="请输入回复内容" >
             </span>
         </li>
     </ul>
+    <div style="text-align: center;margin: 10px 10px;">
+        <button id="but_ok" type="button" class="btn btn-primary btn-sm">回复</button>
+    </div>
 </div>
 
 <script>
     mui.init({
         swipeBack:true //启用右滑关闭功能
+    });
+
+
+    $("button[id='but_ok']").click(function(){
+        //alert($("input[name='REPLY_ID']").val());
+        $.post("../addReply", {
+                REPLY_REPOTFORMID:$("input[name='REPORTFORM_ID']").val(),
+                REPLY_CONTENT:$("input[name='REPLY_CONTENT']").val(),
+            },
+            function(data,status){
+                if(data=="1" && status=="success"){
+                    alert("您已回复 ");
+                    window.location.replace("../../doctorMain");
+                }else{
+                    alert("服务器故障或咨询已回复");
+                }
+            });
     });
 </script>
 </body>

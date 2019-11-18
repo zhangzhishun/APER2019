@@ -21,7 +21,7 @@ public class ReplyInsertServiceImpl implements ReplyInsertService {
     ReplyDao replyDao;
 
     @Override
-    public int insertReportForm(Reply reply) {
+    public int insertReply(Reply reply) {
         return replyDao.replyInsert(reply);
     }
 }

@@ -129,7 +129,7 @@ public class FileController {
             if (!file.isEmpty()) {
                 try {
                     byte[] bytes = file.getBytes();
-                    stream = new BufferedOutputStream(new FileOutputStream(new File("F:\\file\\study\\idea\\JavaWeb\\APER2019\\src\\main\\resources\\static\\img\\reporimgs\\"+file.getOriginalFilename())));
+                    stream = new BufferedOutputStream(new FileOutputStream(new File("F:\\file\\study\\idea\\JavaWeb\\APER2019\\src\\main\\resources\\static\\img\\reportForm\\"+file.getOriginalFilename())));
                     stream.write(bytes);
                     stream.close();
 

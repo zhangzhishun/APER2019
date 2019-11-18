@@ -90,7 +90,7 @@
                     <a th:href ="@{'./user/getREPLYID/' + ${msg['REPLY_ID']} }">
                         <!--页眉，放置标题-->
                         <div class="mui-card-header mui-card-media">
-                            <img src="img/head.png" />
+                            <img src="./static/img/public/head.png" />
                             <div class="mui-media-body">
                                 "<td th:text="${msg['REPORTFORM_TITLE']}"></td>"的回复
                                 <span th:if="${msg['REPLY_STATE']}==0">[未点击知晓]</span>

@@ -14,17 +14,17 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("login");
-        registry.addViewController("/index").setViewName("login");
+        //registry.addViewController("/login").setViewName("login");
     }
 
     //注册拦截器
-    @Override
+/*    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //拦截所有的请求
         //addPathPattern后跟拦截地址，excludePathPatterns后跟排除拦截地址
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/user/**","/doctor/**","/admin/**","/index").excludePathPatterns("/static/**");
-    }
+                .excludePathPatterns("/user/**","/doctor/**","/admin/**","/aper/**").excludePathPatterns("/static/**");
+    }*/
 
     @Configuration
     public class WebMvcConfig extends WebMvcConfigurerAdapter{

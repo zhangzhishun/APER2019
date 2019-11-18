@@ -16,10 +16,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReportFormUpdateServiceImpl implements ReportFormUpdateService {
     @Autowired
-    ReportFormDao reportFormDao;
+    ReportFormDao reportFormDaoImpl;
 
     @Override
     public int updateReportForm(ReportForm reportForm) {
-        return reportFormDao.reportFormUpdate(reportForm);
+        return reportFormDaoImpl.reportFormUpdate(reportForm);
+    }
+
+    @Override
+    public int updateReportFormState(Integer REPORTFORM_ID,Integer newState) {
+        return reportFormDaoImpl.reportFormUpdateState(REPORTFORM_ID,newState);
     }
 }

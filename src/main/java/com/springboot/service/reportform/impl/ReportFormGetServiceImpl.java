@@ -19,16 +19,21 @@ import java.util.Map;
 @Service
 public class ReportFormGetServiceImpl implements ReportFormGetService {
     @Autowired
-    ReportFormDao reportFormDao;
+    ReportFormDao reportFormDaoImpl;
 
 
     @Override
     public List<Map<String, Object>> getReportForm() {
-        return reportFormDao.getReportForm();
+        return reportFormDaoImpl.getReportForm();
     }
 
     @Override
     public List<Map<String, Object>> getReportFormByREPORTFORM_ID(Integer REPORTFORM_ID) {
-        return reportFormDao.getReportFormByReportFormID(REPORTFORM_ID);
+        return reportFormDaoImpl.getReportFormByReportFormID(REPORTFORM_ID);
+    }
+
+    @Override
+    public List<Map<String, Object>> getGetUnHandleReportFormByDOCTORID(Integer DOCTOR_ID) {
+        return reportFormDaoImpl.getGetUnHandleReportFormByDOCTORID(DOCTOR_ID);
     }
 }

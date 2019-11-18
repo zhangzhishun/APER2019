@@ -10,7 +10,7 @@ import com.springboot.domain.ReportForm;
 public interface ReplyUpdateService {
 
     /**
-     * 向ReportForm插入数据
+     * 更新Reply
      * @return int
      **/
     int updateReply(Reply reply);

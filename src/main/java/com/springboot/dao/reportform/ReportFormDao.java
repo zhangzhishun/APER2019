@@ -29,10 +29,27 @@ public interface ReportFormDao {
     List<Map<String, Object>> getReportFormByReportFormID(Integer ReportForm_ID);
 
     /**
+     * 根据医生科室名获取科室的所有咨询
+     * @return List<Map<String, Object>>
+     */
+    List<Map<String, Object>> getGetReportFormByDOCTORID(Integer DOCTOR_ID);
+
+    /**
+     * 根据用户名获取用户所有未处理的咨询
+     * @return List<Map<String, Object>>
+     */
+    List<Map<String, Object>> getGetUnHandleReportFormByDOCTORID(Integer DOCTOR_ID);
+    /**
      * 用户注册
      * @return int
      */
     int reportFormUpdate(ReportForm reportForm);
+
+    /**
+     * 更新reportForm中的状态
+     * @return int
+     */
+    int reportFormUpdateState(Integer REPORTFORM_ID,Integer newState);
 
     /**
      * 删除用户
@@ -44,4 +61,6 @@ public interface ReportFormDao {
      * 根据用户ID寻找用户发起的咨询
      * @return boolean*/
     List<Map<String,Object>> getReportFormByUSERID(Integer USER_ID);
+
+
 }

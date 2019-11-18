@@ -12,13 +12,18 @@ import java.util.Map;
 public interface ReportFormGetService {
 
     /**
-     * 向ReportForm插入数据
+     * 获取ReportForm中所有数据
      * @return boolean*/
     List<Map<String,Object>> getReportForm();
 
     /**
-     * 向ReportForm插入数据
+     * 根据REPORTFORM_ID获取一条数据
      * @return boolean*/
     List<Map<String,Object>> getReportFormByREPORTFORM_ID(Integer REPORTFORM_ID);
+
+    /**
+     * 根据REPORTFORM_ID获取一条数据
+     * @return boolean*/
+    List<Map<String,Object>> getGetUnHandleReportFormByDOCTORID(Integer DOCTOR_ID);
 
 }

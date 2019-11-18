@@ -48,6 +48,30 @@ public class ReportFormDaoImpl implements ReportFormDao {
     }
 
     @Override
+    public List<Map<String, Object>> getGetReportFormByDOCTORID(Integer DOCTOR_ID) {
+
+        String sql = "SELECT * FROM report_form WHERE report_form.REPORTFORM_OFFICEID =(" +
+                "SELECT DOCTOR_OFFICEID FROM doctor WHERE doctor.DOCTOR_ID = ?)";
+        List<Map<String, Object>> result = jdbcTemplate.queryForList(sql,DOCTOR_ID);
+        for (Map<String,Object> re : result) {
+            System.out.println(re);
+        }
+        return result;
+    }
+
+    @Override
+    public List<Map<String, Object>> getGetUnHandleReportFormByDOCTORID(Integer DOCTOR_ID) {
+        String sql = "SELECT * FROM report_form WHERE report_form.REPORTFORM_STATE = '0'" +
+                " AND report_form.REPORTFORM_OFFICEID =(" +
+                "SELECT DOCTOR_OFFICEID FROM doctor WHERE doctor.DOCTOR_ID = ?)";
+        List<Map<String, Object>> result = jdbcTemplate.queryForList(sql,DOCTOR_ID);
+        for (Map<String,Object> re : result) {
+            System.out.println(re);
+        }
+        return result;
+    }
+
+    @Override
     public int reportFormUpdate(ReportForm reportForm) {
         String sql = "UPDATE report_form " +
                 "SET REPORTFORM_USERID = ?," +
@@ -62,6 +86,13 @@ public class ReportFormDaoImpl implements ReportFormDao {
                 reportForm.getREPORTFORM_TIME(),reportForm.getREPORTFORM_OFFICEID(),reportForm.getREPORTFORM_STATE(),reportForm.getREPORTFORM_IMG(),
                 reportForm.getREPORTFORM_ID());
     }
+
+    @Override
+    public int reportFormUpdateState(Integer REPORTFORM_ID, Integer newState) {
+        String sql = "UPDATE report_form SET REPORTFORM_STATE = ? WHERE REPORTFORM_ID = ?";
+        return jdbcTemplate.update(sql,newState,REPORTFORM_ID);
+    }
+
 
     @Override
     public int ReportFormDelete(Integer REPORTFORM_ID) {

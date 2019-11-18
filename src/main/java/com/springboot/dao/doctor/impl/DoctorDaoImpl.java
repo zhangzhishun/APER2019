@@ -87,13 +87,8 @@ public class DoctorDaoImpl implements DoctorDao {
     @Override
     public int doctorUpdate(Doctor doctor) {
         String sql = "UPDATE doctor " +
-                "SET DOCTOR_PASSWORD = ?," +
-                "DOCTOR_REALNAME = ?," +
-                "DOCTOR_SEX = ?," +
-                "DOCTOR_PHONE = ?" +
-                "DOCTOR_WECHAT = ?" +
-                "DOCTOR_OFFICEID = ?" +
-                "WHERE USER_NAME = ?";
+                "SET DOCTOR_PASSWORD = ?,DOCTOR_REALNAME = ?,DOCTOR_SEX = ?,DOCTOR_PHONE = ?,DOCTOR_WECHAT = ?,DOCTOR_OFFICEID = ? " +
+                "WHERE DOCTOR_NAME = ?";
         return jdbcTemplate.update(sql,doctor.getDOCTOR_PASSWORD(),doctor.getDOCTOR_REALNAME(),doctor.getDOCTOR_SEX(),doctor.getDOCTOR_PHONE(),
                 doctor.getDOCTOR_WECHAT(),doctor.getDOCTOR_OFFICEID(),doctor.getDOCTOR_NAME());
     }
