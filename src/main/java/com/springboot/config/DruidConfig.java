@@ -2,6 +2,7 @@ package com.springboot.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.WebStatFilter;
+import org.apache.catalina.core.ApplicationFilterChain;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Filter;
 
 @Configuration
 public class DruidConfig {
@@ -20,7 +22,6 @@ public class DruidConfig {
     public DataSource druid(){
        return  new DruidDataSource();
     }
-
 
     //2、配置一个web监控的filter
     @Bean
@@ -37,4 +38,6 @@ public class DruidConfig {
 
         return  bean;
     }
+
+
 }
